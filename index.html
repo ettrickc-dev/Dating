@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Vibes — Free Dating · Live Chat · Local Ads</title>
-<meta name="description" content="Free, simple dating: sign in, make a profile, swipe, match, and chat in real time. 18+, consent-first. Run your own ads free; charge others to advertise by state."/>
+<meta name="description" content="Free, simple dating: sign in, make a profile, swipe, match, and chat in real time. 18+, consent-first. The site owner sells state-targeted ads. House ad (free) is owner-only."/>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 <style>
@@ -42,6 +42,8 @@ kbd{background:#111;color:#fff;border-radius:8px;padding:.2rem .45rem;font-size:
 .help-bubble{background:#fff3c4;border:2px dashed #f59e0b;border-radius:14px;padding:.6rem .8rem}
 .notice{background:#ecfeff;border:2px solid #a5f3fc;border-radius:14px;padding:.6rem .8rem}
 .ad-card img{max-height:280px;object-fit:cover}
+.state-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:.5rem}
+.state-pill{display:flex;align-items:center;gap:.35rem;border:2px solid var(--line);border-radius:999px;padding:.35rem .6rem;font-size:.9rem}
 </style>
 </head>
 <body class="antialiased">
@@ -83,7 +85,7 @@ kbd{background:#111;color:#fff;border-radius:8px;padding:.2rem .45rem;font-size:
   <div class="max-w-6xl mx-auto px-4 section grid lg:grid-cols-3 gap-6 items-center">
     <div class="lg:col-span-2">
       <h1 class="text-5xl font-extrabold leading-tight">Meet kind people. Match. Chat. Free.</h1>
-      <p class="mt-3 small">1) Sign in • 2) Make your profile • 3) Pick a room • 4) Swipe & chat after you match.</p>
+      <p class="mt-3 small"><b>Easy steps:</b> 1) Sign in · 2) Make your profile · 3) Pick a room · 4) Swipe & chat after you match.</p>
       <div class="mt-5 flex flex-wrap gap-3">
         <a href="#profile" class="btn btn-primary">Step 1 — Make Profile</a>
         <a href="#rooms" class="btn btn-rose">Step 2 — Pick a Room</a>
@@ -104,13 +106,18 @@ kbd{background:#111;color:#fff;border-radius:8px;padding:.2rem .45rem;font-size:
 <!-- =================== ADS HOMEPAGE (Monetization) =================== -->
 <section id="ads" class="max-w-6xl mx-auto px-4 section card">
   <div class="flex items-center justify-between">
-    <h2 class="text-3xl font-bold">Local Promos</h2>
+    <div>
+      <h2 class="text-3xl font-bold">Local Promos</h2>
+      <p class="small mt-1">
+        <b>Note:</b> Paid ads are sold and collected by the site owner only.
+        The owner can also post one free “House Ad.” Advertisers choose their state(s) and we show their ad there.
+      </p>
+    </div>
     <div class="small">
-      <label for="statePick"><b>Your state:</b></label>
+      <label for="statePick"><b>See ads for:</b></label>
       <select id="statePick"></select>
     </div>
   </div>
-  <p class="small mt-1">Ads show for your chosen state. Your site stays free; you can run your own “house ad” free and charge others.</p>
   <div id="adsGrid" class="grid-auto mt-3"></div>
 </section>
 
@@ -252,36 +259,59 @@ kbd{background:#111;color:#fff;border-radius:8px;padding:.2rem .45rem;font-size:
   </div>
 </section>
 
-<!-- BUY ADS (Self-serve) -->
+<!-- BUY ADS (Self-serve; Owner gets paid) -->
 <section id="ad-self" class="max-w-6xl mx-auto px-4 section card">
-  <h2 class="text-3xl font-bold">Buy an Ad</h2>
-  <p class="small">Your ad shows on our homepage to people in the state(s) you choose. PG-13 only.</p>
+  <h2 class="text-3xl font-bold">Buy an Ad (Owner gets paid)</h2>
+  <p class="small">
+    Your ad shows on our homepage to people in the state(s) you choose. PG-13 only.  
+    <b>Payments are collected by the site owner only.</b> You’ll click **Pay Now**, then submit your ad for fast approval.
+  </p>
+
+  <div class="notice mt-3 small">
+    <b>Fast steps for advertisers:</b> 1) Click <i>Pay Now</i> → 2) Fill your ad details → 3) Submit → 4) We approve fast.
+  </div>
+
   <div class="grid md:grid-cols-2 gap-3 mt-3">
     <div><label>Ad Title</label><input id="buyTitle" placeholder="e.g., Fast Legal Templates"/></div>
     <div><label>Link (URL)</label><input id="buyLink" placeholder="https://example.com"/></div>
-    <div><label>Image URL</label><input id="buyImg" placeholder="https://picsum.photos/800"/></div>
+    <div class="md:col-span-2">
+      <label>Image URL</label><input id="buyImg" placeholder="https://picsum.photos/800"/>
+    </div>
+    <div class="md:col-span-2">
+      <label>Choose Your State(s)</label>
+      <div id="stateCheckboxes" class="state-grid mt-2"></div>
+      <div class="small mt-1">Pick one or many. We’ll show your ad in those states.</div>
+    </div>
     <div>
-      <label>States (comma, like NY,NJ,CT)</label>
-      <input id="buyStates" placeholder="NY,NJ"/>
+      <label>Start Date</label>
+      <input id="buyStart" type="date"/>
     </div>
-    <div><label>Payment Link (Stripe/PayPal)</label><input id="buyPay" placeholder="https://buy.stripe.com/..."/></div>
-    <div><label>Dates</label>
-      <div class="grid grid-cols-2 gap-2">
-        <input id="buyStart" type="date"/><input id="buyEnd" type="date"/>
-      </div>
+    <div>
+      <label>End Date</label>
+      <input id="buyEnd" type="date"/>
     </div>
   </div>
-  <div class="mt-3 flex gap-2">
+
+  <div class="mt-3 flex flex-wrap gap-2">
+    <!-- Pay Now goes to OWNER ONLY -->
+    <a id="payNow" class="btn btn-rose" href="https://www.paypal.com/donate/?hosted_button_id=NYAEX2BAXQ6ZJ" target="_blank" rel="noopener">💳 Pay Now</a>
     <button id="buySubmit" class="btn btn-primary">Submit Ad (Review)</button>
-    <button id="buyMyFree" class="btn btn-ghost">Submit as My Free House Ad</button>
+
+    <!-- Owner-only free House Ad -->
+    <button id="buyMyFree" class="btn btn-ghost">Post House Ad (Owner only)</button>
   </div>
-  <p class="small mt-2 notice">After you pay, we approve fast. You can also run your own “house ad” for free.</p>
+
+  <p class="small mt-2 notice">
+    After payment, submit your ad. <b>Only the owner is paid.</b>  
+    <b>House Ad</b> is a free spot reserved for the owner to promote their own services.
+  </p>
 </section>
 
 <!-- ADMIN (Approve Ads) -->
-<section id="admin" class="max-w-6xl mx-auto px-4 section card" style="display:none">
+<section id="admin" class="max-w-6xl mx-auto px-4 section card">
   <h2 class="text-3xl font-bold">Admin</h2>
-  <p class="small">Only shows if your user_id is in <code>public.admins</code>.</p>
+  <p class="small">Only visible if your user_id is in <code>public.admins</code>.  
+    Owner-only rules: Only admins can post a free House Ad; only owner receives payments.</p>
   <div class="grid md:grid-cols-2 gap-3">
     <div class="card p-3">
       <h3 class="font-bold text-xl">Pending Ads</h3>
@@ -320,8 +350,8 @@ kbd{background:#111;color:#fff;border-radius:8px;padding:.2rem .45rem;font-size:
 </div>
 
 <script>
-/* ====== YOUR SUPABASE VALUES (public anon key is OK here) ====== */
-const SUPABASE_URL  = "https://gioiqevjzrbdnspwapcg.supabase.co";
+/* ====== PASTE YOUR SUPABASE VALUES HERE ====== */
+const SUPABASE_URL = "https://gioiqevjzrbdnspwapcg.supabase.co";
 const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdpb2lxZXZqenJiZG5zcHdhcGNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIwNTYyODgsImV4cCI6MjA3NzYzMjI4OH0.PFJbiVU3z_YU09ufNL8QvLiSvABSqZ5bFkG4exAE7Q0";
 
 /* ====== Supabase client ====== */
@@ -358,6 +388,8 @@ async function refreshAuthUI(){
     IS_ADMIN = !!adm;
   } else IS_ADMIN=false;
   $("#admin").style.display = IS_ADMIN ? "block":"none";
+  // Owner-only control: House Ad button visible only for admins
+  $("#buyMyFree").style.display = IS_ADMIN ? "inline-flex" : "none";
 }
 $("#authGo").onclick = async ()=>{
   const email = $("#authEmail").value.trim();
@@ -378,6 +410,18 @@ function fillStatePicker(){
   });
   s.value = localStorage.getItem("vibes_state") || "";
   s.onchange = ()=>{ localStorage.setItem("vibes_state", s.value); renderAds(); };
+}
+function renderStateCheckboxes(){
+  const box=$("#stateCheckboxes"); box.innerHTML="";
+  US_STATES.slice(1).forEach(st=>{
+    const id="st_"+st;
+    const wrap=document.createElement("label"); wrap.className="state-pill cursor-pointer";
+    wrap.innerHTML = `<input type="checkbox" id="${id}" value="${st}" /> <span>${st}</span>`;
+    box.appendChild(wrap);
+  });
+}
+function getCheckedStates(){
+  return Array.from(document.querySelectorAll("#stateCheckboxes input[type=checkbox]:checked")).map(c=>c.value);
 }
 
 /* ====== PROFILES ====== */
@@ -453,40 +497,41 @@ async function fetchApprovedAds(){
     .order('created_at',{ascending:false});
   return data||[];
 }
-async function submitAd({title,link,image_url,states,is_free,payment_link,starts,ends}){
+async function submitAd({title,link,image_url,states,starts,ends,is_free}){
   if(!ME) return alert("Sign in first.");
   const { error } = await sb.from('ads').insert({
     owner: ME.id,
     title, link, image_url,
     states: states,
     is_free: !!is_free,
-    payment_link,
     starts_at: starts||null,
     ends_at: ends||null,
-    status: is_free ? 'pending':'pending'
+    status: 'pending'
   });
-  if(error) alert(error.message); else alert("Ad submitted! We'll review it soon.");
+  if(error) alert(error.message); else alert("Ad submitted! We’ll review it quickly.");
 }
 $("#buySubmit").onclick = async ()=>{
   const title=$("#buyTitle").value.trim(), link=$("#buyLink").value.trim(), image=$("#buyImg").value.trim();
-  const states=($("#buyStates").value||"").split(",").map(s=>s.trim().toUpperCase()).filter(Boolean);
-  const pay=$("#buyPay").value.trim(); const starts=$("#buyStart").value||null; const ends=$("#buyEnd").value||null;
-  if(!title||!link||!image) return alert("Fill title, link, and image.");
-  await submitAd({title,link,image_url:image,states,is_free:false,payment_link:pay,starts,ends});
+  const states=getCheckedStates();
+  const starts=$("#buyStart").value||null; const ends=$("#buyEnd").value||null;
+  if(!title||!link||!image) return alert("Please fill Title, Link, and Image.");
+  if(!states.length) return alert("Pick at least one state.");
+  await submitAd({title,link,image_url:image,states,starts,ends,is_free:false});
 };
 $("#buyMyFree").onclick = async ()=>{
+  if(!IS_ADMIN){ alert("Only the site owner can post a free House Ad."); return; }
   const title=$("#buyTitle").value.trim(), link=$("#buyLink").value.trim(), image=$("#buyImg").value.trim();
-  const states=($("#buyStates").value||"").split(",").map(s=>s.trim().toUpperCase()).filter(Boolean);
+  const states=getCheckedStates();
   const starts=$("#buyStart").value||null; const ends=$("#buyEnd").value||null;
-  if(!title||!link||!image) return alert("Fill title, link, and image.");
-  await submitAd({title,link,image_url:image,states,is_free:true, payment_link:null,starts,ends});
+  if(!title||!link||!image) return alert("Please fill Title, Link, and Image.");
+  await submitAd({title,link,image_url:image,states,starts,ends,is_free:true});
 };
 function renderAdsCard(ad){
   return `<div class="card p-3 ad-card">
     <a href="${ad.link}" target="_blank" rel="noopener">
       <img src="${ad.image_url}" class="w-full rounded-xl border" alt="${escapeHTML(ad.title)}"/>
       <div class="mt-2 font-bold text-xl">${escapeHTML(ad.title)}</div>
-      <div class="small text-slate-600">${ad.is_free ? "House Ad" : "Sponsored"}</div>
+      <div class="small text-slate-600">${ad.is_free ? "House Ad (Owner)" : "Sponsored"}</div>
     </a>
   </div>`;
 }
@@ -502,7 +547,7 @@ async function renderAds(){
     return inDate && inState;
   });
   if(!filtered.length){
-    grid.innerHTML = `<div class="small">No sponsored ads for your state yet. Check back soon!</div>`;
+    grid.innerHTML = `<div class="small">No sponsored ads for your selected state yet. Check back soon!</div>`;
     return;
   }
   filtered.forEach(ad=>{ const d=document.createElement("div"); d.innerHTML=renderAdsCard(ad); grid.appendChild(d); });
@@ -530,10 +575,10 @@ async function loadAdmin(){
   p.forEach(x=>{
     const d=document.createElement("div"); d.className="p-2 border-b border-slate-200";
     d.innerHTML = `<div class="font-semibold">${escapeHTML(x.title)}</div>
-      <div class="small">${(x.states||[]).join(", ")||"All states"} • ${x.payment_link?"Has payment link":"No payment link"} • ${x.is_free?"House ad":"Sponsored"}</div>
+      <div class="small">${(x.states||[]).join(", ")||"All states"} • ${x.is_free?"House Ad (Owner)":"Sponsored"}</div>
       <div class="mt-2 flex gap-2">
         <button class="btn btn-primary" data-approve="${x.id}">Approve</button>
-        <button class="btn btn-ghost" data-approve-paid="${x.id}">Approve+Paid</button>
+        <button class="btn btn-ghost" data-approve-paid="${x.id}">Approve + Mark Paid</button>
         <button class="btn btn-ghost" data-reject="${x.id}">Reject</button>
       </div>`;
     P.appendChild(d);
@@ -541,11 +586,11 @@ async function loadAdmin(){
   a.forEach(x=>{
     const d=document.createElement("div"); d.className="p-2 border-b border-slate-200";
     d.innerHTML = `<div class="font-semibold">${escapeHTML(x.title)}</div>
-      <div class="small">${(x.states||[]).join(", ")||"All states"} • ${x.is_free?"House ad":"Sponsored"} • Paid: ${x.paid?"Yes":"No"}</div>`;
+      <div class="small">${(x.states||[]).join(", ")||"All states"} • ${x.is_free?"House Ad (Owner)":"Sponsored"} • Paid: ${x.paid?"Yes":"No"}</div>`;
     A.appendChild(d);
   });
   P.querySelectorAll("[data-approve]").forEach(b=>b.onclick=()=>adminApprove(Number(b.dataset.approve), false));
-  P.querySelectorAll("[data-approve-paid]").forEach(b=>b.onclick=()=>adminApprove(Number(b.dataset.approvePaid || b.getAttribute("data-approve-paid")), true));
+  P.querySelectorAll("[data-approve-paid]").forEach(b=>b.onclick=()=>adminApprove(Number(b.getAttribute("data-approve-paid")), true));
   P.querySelectorAll("[data-reject]").forEach(b=>b.onclick=()=>adminReject(Number(b.dataset.reject)));
 }
 
@@ -682,7 +727,7 @@ function openProfile(id){
   $("#pmLike").onclick=()=>{ likeFlow(p.id); closeModal(); };
   $("#pmSuper").onclick=()=>{ superFlow(p.id); closeModal(); };
   $("#pmMsg").onclick=()=>{ alert("Message after matching. Like each other to open chat."); closeModal(); };
-  $("#pmReport").onclick=()=>{ alert("Reported. (Add admin review later.)"); closeModal(); };
+  $("#pmReport").onclick=()=>{ alert("Reported. (Admin review)"); closeModal(); };
   $("#pmBlock").onclick=()=>{ DECK=DECK.filter(x=>x.id!==p.id); renderGrid(); renderStack(); closeModal(); };
   $("#profileModal").classList.remove("hide");
 }
@@ -756,6 +801,7 @@ $("#sendMsg").onclick = async ()=>{
 /* ====== Bootstrap ====== */
 async function bootstrap(){
   fillStatePicker();
+  renderStateCheckboxes();
   await refreshAuthUI();
   if(ME){ MY_PROFILE = await loadMyProfile(); fillProfileForm(); }
   await reloadDeck();
@@ -766,3 +812,4 @@ bootstrap();
 </script>
 </body>
 </html>
+
