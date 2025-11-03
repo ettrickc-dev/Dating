@@ -813,6 +813,122 @@ async function bootstrap(){
 }
 bootstrap();
 </script>
+  <!-- ==================== STICKY ACTION BAR (mobile) ==================== -->
+<style>
+  .sticky-cta {
+    position: sticky; bottom: 0; z-index: 50;
+    background: #ffffffcc; backdrop-filter: blur(6px);
+    border-top: 1px solid #e2e8f0;
+  }
+  @media (min-width: 768px){ .sticky-cta{ display:none; } }
+</style>
+<div class="sticky-cta">
+  <div class="max-w-6xl mx-auto px-4 py-3 grid grid-cols-3 gap-2">
+    <a href="#profile" class="btn btn-primary w-full">Create Profile</a>
+    <a href="#match" class="btn btn-rose w-full">Swipe</a>
+    <a href="#ad-self" class="btn btn-accent w-full">Buy Ad</a>
+  </div>
+</div>
+
+<!-- ==================== FOOTER (Terms / Privacy / Safety) ==================== -->
+<footer class="mt-10 border-t border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 py-8 grid md:grid-cols-3 gap-4">
+    <div>
+      <div class="text-xl font-extrabold">Vibes</div>
+      <p class="small mt-2">Simple, consent-first dating. 18+ only. Keep it friendly and respectful.</p>
+      <div class="mt-3 flex gap-2">
+        <!-- Your donate link (already provided) -->
+        <a class="btn btn-primary" href="https://www.paypal.com/donate/?hosted_button_id=NYAEX2BAXQ6ZJ" target="_blank" rel="noopener">Donate</a>
+      </div>
+    </div>
+    <div>
+      <h4 class="font-bold text-lg">Important</h4>
+      <ul class="small mt-2 list-disc pl-5">
+        <li>18+ only. No explicit content.</li>
+        <li>No escorting / paid arrangements.</li>
+        <li>Meet in public; tell a friend.</li>
+        <li>Use the Report button for issues.</li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-bold text-lg">Legal</h4>
+      <div class="mt-2 flex flex-wrap gap-2">
+        <button class="btn btn-ghost" id="openTerms">Terms</button>
+        <button class="btn btn-ghost" id="openPrivacy">Privacy</button>
+        <button class="btn btn-ghost" id="openSafety">Safety</button>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-6xl mx-auto px-4 pb-6 small text-slate-500">
+    © <span id="yr"></span> independentplaymates.com • All rights reserved.
+  </div>
+</footer>
+
+<!-- ===== Modals (tiny text you can edit later) ===== -->
+<style>
+  .modal-scrim{ position:fixed; inset:0; background:rgba(0,0,0,.4); display:none; align-items:center; justify-content:center; z-index:60; }
+  .modal-card{ max-width:900px; width:96%; max-height:90vh; overflow:auto }
+</style>
+
+<div id="termsModal" class="modal-scrim">
+  <div class="card p-5 modal-card">
+    <div class="flex items-center justify-between">
+      <h3 class="text-2xl font-bold">Terms of Use</h3>
+      <button class="btn btn-ghost" data-close="termsModal">✖</button>
+    </div>
+    <div class="small mt-3 space-y-2">
+      <p>Welcome. By using this site, you agree to: (1) be 18+; (2) keep content PG-13; (3) no escorting/paid arrangements; (4) be respectful; (5) comply with laws; (6) accept that matches/messages are not guaranteed; (7) we may remove content/profiles for safety or policy reasons.</p>
+      <p>This site is provided “as is.” We do not guarantee uninterrupted service, matches, or outcomes. Use at your own risk.</p>
+      <p>We may update these Terms anytime. Continued use = acceptance. Contact Admin for questions or concerns.</p>
+    </div>
+  </div>
+</div>
+
+<div id="privacyModal" class="modal-scrim">
+  <div class="card p-5 modal-card">
+    <div class="flex items-center justify-between">
+      <h3 class="text-2xl font-bold">Privacy Policy</h3>
+      <button class="btn btn-ghost" data-close="privacyModal">✖</button>
+    </div>
+    <div class="small mt-3 space-y-2">
+      <p>We use Supabase for authentication, database, storage, and realtime chat. We store your profile data and photos you upload, and show your profile to other users. We may collect basic analytics (page views, clicks) to improve the site.</p>
+      <p>We don’t sell personal data. We display ads; advertisers provide their own links. Use caution when visiting external links.</p>
+      <p>You can delete or edit your profile data through your account. For removal requests or safety issues, use the Report button or contact Admin.</p>
+    </div>
+  </div>
+</div>
+
+<div id="safetyModal" class="modal-scrim">
+  <div class="card p-5 modal-card">
+    <div class="flex items-center justify-between">
+      <h3 class="text-2xl font-bold">Safety Tips</h3>
+      <button class="btn btn-ghost" data-close="safetyModal">✖</button>
+    </div>
+    <div class="small mt-3 space-y-2">
+      <p>1) Keep chats on the app until you feel comfortable. 2) Meet in public places first. 3) Tell a friend your plans and share your location. 4) Take your own transportation. 5) If a profile asks for money or services—report it immediately.</p>
+      <p>Use the Report button on profiles. We review and may remove content or accounts to keep things safe.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Footer year
+  document.querySelector('#yr').textContent = new Date().getFullYear();
+  // Open modals
+  const open = id => document.getElementById(id).style.display = 'flex';
+  const close = id => document.getElementById(id).style.display = 'none';
+  document.getElementById('openTerms').onclick = ()=>open('termsModal');
+  document.getElementById('openPrivacy').onclick = ()=>open('privacyModal');
+  document.getElementById('openSafety').onclick = ()=>open('safetyModal');
+  document.querySelectorAll('[data-close]').forEach(btn=>{
+    btn.addEventListener('click', ()=> close(btn.getAttribute('data-close')));
+  });
+  // Close if you click outside card
+  document.querySelectorAll('.modal-scrim').forEach(s=>{
+    s.addEventListener('click', (e)=>{ if(e.target===s) s.style.display='none'; });
+  });
+</script>
+
 </body>
 </html>
 
