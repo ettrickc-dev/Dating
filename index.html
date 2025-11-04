@@ -3,19 +3,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>IndependentPlaymates — Free Dating · Live Chat · Local Ads</title>
+<title>independentplaymates — Free Dating · Live Chat · Local Ads</title>
+<meta name="description" content="Free, simple dating: sign in, make a profile, swipe, match, and chat in real time. 18+, consent-first. State-targeted ads."/>
 <link rel="canonical" href="https://independentplaymates.com/"/>
-<meta name="description" content="Free, simple dating: sign in, make a profile, swipe, match, and chat in real time. 18+, consent-first. Run your own house ad (admin), approve paid ads by state."/>
-<meta property="og:title" content="IndependentPlaymates — Free Dating · Live Chat · Local Ads"/>
-<meta property="og:description" content="Sign in, swipe, match, and chat. Free and consent-first. Local ads by state."/>
-<meta property="og:type" content="website"/>
-<meta property="og:url" content="https://independentplaymates.com/"/>
-<meta name="theme-color" content="#7c3aed"/>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='64' width='64'%3E%3Crect width='100%25' height='100%25' rx='12' ry='12' fill='%237c3aed'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' font-size='40' font-family='Arial' fill='white'%3EIP%3C/text%3E%3C/svg%3E">
-
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-
 <style>
 :root{--ink:#0f172a;--muted:#475569;--line:#e2e8f0;--primary:#7c3aed;--accent:#10b981;--rose:#f43f5e;--amber:#f59e0b}
 html,body{background:#fff;color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
@@ -26,16 +18,9 @@ html,body{background:#fff;color:var(--ink);font-family:system-ui,-apple-system,S
 .btn-accent{background:var(--accent);color:#fff}
 .btn-rose{background:var(--rose);color:#fff}
 .badge{font-size:.9rem;padding:.25rem .6rem;border-radius:.6rem;background:#ecfeff;color:#155e75;border:1px solid #a5f3fc}
-.section{padding:28px}
+.section{padding:24px}
 .small{font-size:.95rem;color:#475569}
-.hero{background:radial-gradient(1200px 500px at 20% -10%, rgba(124,58,237,.08), transparent),radial-gradient(800px 400px at 110% -20%, rgba(244,63,94,.08), transparent)}
-.vibe{border-radius:18px;overflow:hidden;position:relative;min-height:180px;display:flex;align-items:flex-end}
-.vibe .shade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.45),transparent 60%)}
-.vibe .txt{position:relative;color:#fff;padding:16px}
-.vibe-1{background:linear-gradient(135deg,#7c3aed,#3b82f6)}
-.vibe-2{background:linear-gradient(135deg,#ef4444,#f59e0b)}
-.vibe-3{background:linear-gradient(135deg,#10b981,#06b6d4)}
-.vibe-4{background:linear-gradient(135deg,#f43f5e,#a855f7)}
+.hero{background:radial-gradient(1200px 600px at 15% -20%, rgba(124,58,237,.10), transparent),radial-gradient(900px 500px at 110% -10%, rgba(16,185,129,.10), transparent)}
 .grid-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
 .avatar{width:100%;height:230px;border-radius:16px;object-fit:cover;border:1px solid var(--line);background:#eee}
 .chip{display:inline-block;border:2px solid var(--line);border-radius:999px;padding:.35rem .75rem;margin:.15rem;font-size:.9rem}
@@ -51,16 +36,32 @@ kbd{background:#111;color:#fff;border-radius:8px;padding:.2rem .45rem;font-size:
 .help-bubble{background:#fff3c4;border:2px dashed #f59e0b;border-radius:14px;padding:.6rem .8rem}
 .notice{background:#ecfeff;border:2px solid #a5f3fc;border-radius:14px;padding:.6rem .8rem}
 .ad-card img{max-height:280px;object-fit:cover}
-.sticky-cta{position:sticky;bottom:10px;z-index:30;display:flex;gap:10px;flex-wrap:wrap}
+
+/* Landing (Match-like) */
+.landing h1{letter-spacing:-.02em}
+.quick-form label{font-weight:600}
+.quick-form .row{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:640px){ .quick-form .row{grid-template-columns:1fr 1fr} }
+@media(min-width:768px){ .quick-form .row3{grid-template-columns:1fr 1fr 1fr} }
+
+/* Sticky mobile CTA */
+.sticky-cta {position: sticky; bottom: 0; z-index: 50; background: #ffffffee; backdrop-filter: blur(6px); border-top: 1px solid #e2e8f0;}
+@media (min-width: 768px){ .sticky-cta{ display:none; } }
+
+/* Footer modals */
+.modal-scrim{ position:fixed; inset:0; background:rgba(0,0,0,.4); display:none; align-items:center; justify-content:center; z-index:60; }
+.modal-card{ max-width:900px; width:96%; max-height:90vh; overflow:auto }
+
 </style>
 </head>
 <body class="antialiased">
 
-<header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-slate-200">
+<!-- TOP NAV -->
+<header class="sticky top-0 z-40 bg-white/92 backdrop-blur border-b border-slate-200">
   <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
     <div class="flex items-center gap-3">
-      <div class="text-2xl font-extrabold">IndependentPlaymates</div>
-      <span class="badge">Free · 18+ · Consent-First · Realtime</span>
+      <div class="text-2xl font-extrabold">independentplaymates</div>
+      <span class="badge">Free · 18+ · Consent-First</span>
     </div>
     <nav class="hidden md:flex gap-4 text-sm">
       <a href="#ads" class="hover:underline">Home</a>
@@ -70,57 +71,103 @@ kbd{background:#111;color:#fff;border-radius:8px;padding:.2rem .45rem;font-size:
       <a href="#inbox" class="hover:underline">Messages</a>
       <a href="#profile" class="hover:underline">My Profile</a>
       <a href="#support" class="hover:underline">Donate</a>
-      <a href="#ad-self" class="hover:underline">Buy Ads</a>
+      <a href="#ad-self" class="hover:underline">Buy Ad</a>
       <a href="#admin" class="hover:underline">Admin</a>
     </nav>
   </div>
 </header>
 
+<!-- AUTH BAR -->
 <section class="max-w-6xl mx-auto px-4 mt-4">
   <div class="card p-4 flex flex-wrap items-center justify-between gap-3">
     <div class="flex-1">
-      <div id="authStatus" class="small">You’re not signed in. Type your email and tap the purple button.</div>
+      <div id="authStatus" class="small">You’re not signed in. Use your email (magic link).</div>
     </div>
-    <div class="flex items-center gap-2">
-      <input id="authEmail" type="email" placeholder="you@email.com" aria-label="Email"/>
-      <button id="authGo" class="btn btn-primary">Send magic link</button>
-      <button id="authOut" class="btn btn-ghost">Sign out</button>
+    <div class="flex items-center gap-2 w-full sm:w-auto">
+      <input id="authEmail" type="email" placeholder="you@email.com" class="w-full sm:w-64"/>
+      <button id="authGo" class="btn btn-primary w-full sm:w-auto">Send magic link</button>
+      <button id="authOut" class="btn btn-ghost w-full sm:w-auto">Sign out</button>
     </div>
   </div>
 </section>
 
-<section class="hero">
-  <div class="max-w-6xl mx-auto px-4 section grid lg:grid-cols-3 gap-6 items-center">
-    <div class="lg:col-span-2">
-      <h1 class="text-5xl font-extrabold leading-tight">Meet kind people. Match. Chat. Free.</h1>
-      <p class="mt-3 small">1) Sign in • 2) Make your profile • 3) Pick a room • 4) Swipe & chat after you match.</p>
-      <div class="mt-5 flex flex-wrap gap-3 sticky-cta">
-        <a href="#profile" class="btn btn-primary">Step 1 — Make Profile</a>
-        <a href="#rooms" class="btn btn-rose">Step 2 — Pick a Room</a>
-        <a href="#trending" class="btn btn-accent">Step 3 — Discover</a>
+<!-- HERO (Match-like landing) -->
+<section class="hero landing">
+  <div class="max-w-6xl mx-auto px-4 section grid lg:grid-cols-2 gap-8 items-center">
+    <div>
+      <h1 class="text-5xl font-extrabold leading-tight">It’s time to date differently.</h1>
+      <p class="mt-3 small">Sign in free. Make your profile. Swipe and chat after you match. Real people. Simple rules. 18+ only.</p>
+
+      <!-- Quick Start Form -->
+      <div class="card p-4 mt-5 quick-form">
+        <div class="row3">
+          <div>
+            <label>Who are you?</label>
+            <select id="whoAmI">
+              <option value="">Prefer not to say</option>
+              <option>She/Her</option><option>He/Him</option><option>They/Them</option>
+            </select>
+          </div>
+          <div>
+            <label>Who are you interested in?</label>
+            <select id="whoWant">
+              <option value="">Anyone kind</option>
+              <option>Women</option><option>Men</option><option>Everyone</option>
+            </select>
+          </div>
+          <div>
+            <label>ZIP code</label>
+            <input id="zip" inputmode="numeric" placeholder="e.g., 10001"/>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div>
+            <label>Between ages (min)</label>
+            <input id="ageMinLanding" type="number" min="18" max="100" value="25"/>
+          </div>
+          <div>
+            <label>Between ages (max)</label>
+            <input id="ageMaxLanding" type="number" min="18" max="100" value="45"/>
+          </div>
+        </div>
+        <div class="mt-3 grid sm:grid-cols-2 gap-2">
+          <button id="viewSingles" class="btn btn-primary w-full">View singles</button>
+          <a href="#profile" class="btn btn-ghost w-full">Join now (free)</a>
+        </div>
+        <p class="small mt-2 text-slate-500">We use this to personalize your experience.</p>
       </div>
-      <p class="small mt-3 help-bubble"><b>Tip:</b> On Swipe: <kbd>←</kbd> pass, <kbd>→</kbd> like, <kbd>↑</kbd> superlike. Or drag cards.</p>
-      <p class="small mt-2 notice"><b>Safety & Policy:</b> 18+ only. No explicit content. No escorting/paid arrangements. Public first meet, tell a friend.</p>
+
+      <p class="small mt-3 notice"><b>Safety:</b> Public first meet, bring your own transport, share your location with a friend. No explicit content or paid arrangements.</p>
     </div>
+
+    <!-- Marketing blocks (text-only, no logic changed) -->
     <div class="grid gap-3">
-      <div class="vibe vibe-1"><div class="shade"></div><div class="txt"><div class="text-xl font-bold">Playful banter</div><div class="small">“Two truths & a dare.”</div></div></div>
-      <div class="vibe vibe-2"><div class="shade"></div><div class="txt"><div class="text-xl font-bold">Slow-burn romance</div><div class="small">“Perfect cozy day?”</div></div></div>
-      <div class="vibe vibe-3"><div class="shade"></div><div class="txt"><div class="text-xl font-bold">Adventure crush</div><div class="small">“Sunrise hike?”</div></div></div>
-      <div class="vibe vibe-4"><div class="shade"></div><div class="txt"><div class="text-xl font-bold">Art & ambiance</div><div class="small">“Gallery + gelato?”</div></div></div>
+      <div class="card p-4">
+        <h3 class="text-xl font-bold">Find what you’re looking for</h3>
+        <p class="small mt-1">Set your dating goals (“Long-term”, “Casual”, “Friendship first”) and match with people who want the same.</p>
+      </div>
+      <div class="card p-4">
+        <h3 class="text-xl font-bold">Highlights & common interests</h3>
+        <p class="small mt-1">Your Discover grid surfaces profiles that share your interests, location, and goals.</p>
+      </div>
+      <div class="card p-4">
+        <h3 class="text-xl font-bold">Values & conversations</h3>
+        <p class="small mt-1">Share what matters (kindness, growth, adventure). Icebreakers and rooms keep chats easy and respectful.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- =================== ADS HOMEPAGE =================== -->
 <section id="ads" class="max-w-6xl mx-auto px-4 section card">
-  <div class="flex items-center justify-between">
+  <div class="flex items-center justify-between flex-wrap gap-3">
     <h2 class="text-3xl font-bold">Local Promos</h2>
     <div class="small">
       <label for="statePick"><b>Your state:</b></label>
-      <select id="statePick" aria-label="Choose your state"></select>
+      <select id="statePick"></select>
     </div>
   </div>
-  <p class="small mt-1">Ads show for your chosen state. Admin can run one free “house ad.” Advertisers can buy state-targeted slots.</p>
+  <p class="small mt-1">Ads show for your chosen state. Advertisers can buy state-targeted slots.</p>
   <div id="adsGrid" class="grid-auto mt-3"></div>
 </section>
 
@@ -212,7 +259,7 @@ kbd{background:#111;color:#fff;border-radius:8px;padding:.2rem .45rem;font-size:
       <div id="chatHeader" class="mt-2 small"></div>
       <div id="chatBox" class="mt-3 h-[380px] border border-slate-200 rounded-xl p-3" style="overflow:auto"></div>
       <div class="mt-3 flex gap-2">
-        <input id="chatInput" placeholder="Type a nice message…" aria-label="Type message"/>
+        <input id="chatInput" placeholder="Type a nice message…"/>
         <button id="sendMsg" class="btn btn-primary">Send</button>
       </div>
     </div>
@@ -262,21 +309,21 @@ kbd{background:#111;color:#fff;border-radius:8px;padding:.2rem .45rem;font-size:
   </div>
 </section>
 
-<!-- BUY ADS (Self-serve) -->
+<!-- BUY ADS (Self-serve, owner approves) -->
 <section id="ad-self" class="max-w-6xl mx-auto px-4 section card">
   <h2 class="text-3xl font-bold">Buy an Ad</h2>
   <p class="small">Your ad shows on our homepage to people in the state(s) you choose. You’ll click <b>Pay Now</b>, then submit your ad for fast approval.</p>
-
   <div class="grid md:grid-cols-2 gap-3 mt-3">
     <div><label>Ad Title</label><input id="buyTitle" placeholder="e.g., Fast Legal Templates"/></div>
     <div><label>Link (URL)</label><input id="buyLink" placeholder="https://example.com"/></div>
     <div><label>Image URL</label><input id="buyImg" placeholder="https://picsum.photos/800"/></div>
-
     <div>
-      <label>States (choose one or more)</label>
-      <div id="buyStatesWrap" class="grid grid-cols-3 gap-2 mt-1"></div>
+      <label>States (pick one or more)</label>
+      <select id="buyStatesSelect" multiple class="h-[160px]">
+        <!-- options filled by JS -->
+      </select>
+      <p class="small mt-1 text-slate-500">Hold Ctrl (Windows) / Cmd (Mac) to select multiple.</p>
     </div>
-
     <div><label>Payment Link (Stripe/PayPal)</label><input id="buyPay" placeholder="https://buy.stripe.com/..."/></div>
     <div><label>Dates</label>
       <div class="grid grid-cols-2 gap-2">
@@ -284,19 +331,16 @@ kbd{background:#111;color:#fff;border-radius:8px;padding:.2rem .45rem;font-size:
       </div>
     </div>
   </div>
-
   <div class="mt-3 flex gap-2">
-    <a id="buyPayNow" class="btn btn-rose" target="_blank" rel="noopener">Pay Now</a>
     <button id="buySubmit" class="btn btn-primary">Submit Ad (Review)</button>
     <button id="buyMyFree" class="btn btn-ghost">Post House Ad (Owner only)</button>
   </div>
-  <p class="small mt-2 notice">After payment, we approve fast. Admin can post one free “house ad.”</p>
 </section>
 
 <!-- ADMIN (Approve Ads) -->
-<section id="admin" class="max-w-6xl mx-auto px-4 section card" style="display:none">
+<section id="admin" class="max-w-6xl mx-auto px-4 section card">
   <h2 class="text-3xl font-bold">Admin</h2>
-  <p class="small">Visible only for admins.</p>
+  <p class="small">Only shows if your user_id is in <code>public.admins</code>.</p>
   <div class="grid md:grid-cols-2 gap-3">
     <div class="card p-3">
       <h3 class="font-bold text-xl">Pending Ads</h3>
@@ -309,7 +353,7 @@ kbd{background:#111;color:#fff;border-radius:8px;padding:.2rem .45rem;font-size:
   </div>
 </section>
 
-<!-- Profile Modal (view card) -->
+<!-- PROFILE MODAL -->
 <div id="profileModal" class="hide" style="position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center">
   <div class="card p-4" style="max-width:900px;width:96%;max-height:90vh;overflow:auto">
     <div class="flex justify-between items-center">
@@ -334,8 +378,90 @@ kbd{background:#111;color:#fff;border-radius:8px;padding:.2rem .45rem;font-size:
   </div>
 </div>
 
+<!-- MOBILE STICKY ACTION BAR -->
+<div class="sticky-cta">
+  <div class="max-w-6xl mx-auto px-4 py-3 grid grid-cols-3 gap-2">
+    <a href="#profile" class="btn btn-primary w-full">Create Profile</a>
+    <a href="#match" class="btn btn-rose w-full">Swipe</a>
+    <a href="#ad-self" class="btn btn-accent w-full">Buy Ad</a>
+  </div>
+</div>
+
+<!-- FOOTER (Tiny Terms/Privacy/Safety with modals) -->
+<footer class="mt-10 border-t border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 py-8 grid md:grid-cols-3 gap-4">
+    <div>
+      <div class="text-xl font-extrabold">independentplaymates</div>
+      <p class="small mt-2">Simple, consent-first dating. 18+ only. Keep it friendly and respectful.</p>
+      <div class="mt-3 flex gap-2">
+        <a class="btn btn-primary" href="https://www.paypal.com/donate/?hosted_button_id=NYAEX2BAXQ6ZJ" target="_blank" rel="noopener">Donate</a>
+      </div>
+    </div>
+    <div>
+      <h4 class="font-bold text-lg">Important</h4>
+      <ul class="small mt-2 list-disc pl-5">
+        <li>18+ only. No explicit content.</li>
+        <li>No escorting / paid arrangements.</li>
+        <li>Meet in public; tell a friend.</li>
+        <li>Use the Report button for issues.</li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-bold text-lg">Legal</h4>
+      <div class="mt-2 flex flex-wrap gap-2">
+        <button class="btn btn-ghost" id="openTerms">Terms</button>
+        <button class="btn btn-ghost" id="openPrivacy">Privacy</button>
+        <button class="btn btn-ghost" id="openSafety">Safety</button>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-6xl mx-auto px-4 pb-6 small text-slate-500">
+    © <span id="yr"></span> independentplaymates.com • All rights reserved.
+  </div>
+</footer>
+
+<!-- Modals -->
+<div id="termsModal" class="modal-scrim">
+  <div class="card p-5 modal-card">
+    <div class="flex items-center justify-between">
+      <h3 class="text-2xl font-bold">Terms of Use</h3>
+      <button class="btn btn-ghost" data-close="termsModal">✖</button>
+    </div>
+    <div class="small mt-3 space-y-2">
+      <p>By using this site, you agree to: (1) be 18+; (2) keep content PG-13; (3) no escorting/paid arrangements; (4) be respectful; (5) comply with laws; (6) accept that matches/messages are not guaranteed; (7) we may remove content/profiles for safety or policy reasons.</p>
+      <p>This site is provided “as is.” We do not guarantee uninterrupted service, matches, or outcomes. Use at your own risk.</p>
+      <p>We may update these Terms anytime. Continued use = acceptance.</p>
+    </div>
+  </div>
+</div>
+<div id="privacyModal" class="modal-scrim">
+  <div class="card p-5 modal-card">
+    <div class="flex items-center justify-between">
+      <h3 class="text-2xl font-bold">Privacy Policy</h3>
+      <button class="btn btn-ghost" data-close="privacyModal">✖</button>
+    </div>
+    <div class="small mt-3 space-y-2">
+      <p>We use Supabase for authentication, database, storage, and realtime chat. We store your profile data and photos you upload, and show your profile to other users. We may collect basic analytics (page views, clicks) to improve the site.</p>
+      <p>We don’t sell personal data. Advertisers provide their own links. Use caution when visiting external links.</p>
+      <p>You can edit or delete your profile via your account. For removal requests or safety issues, use the Report button or contact Admin.</p>
+    </div>
+  </div>
+</div>
+<div id="safetyModal" class="modal-scrim">
+  <div class="card p-5 modal-card">
+    <div class="flex items-center justify-between">
+      <h3 class="text-2xl font-bold">Safety Tips</h3>
+      <button class="btn btn-ghost" data-close="safetyModal">✖</button>
+    </div>
+    <div class="small mt-3 space-y-2">
+      <p>1) Keep chats on the app until you feel comfortable. 2) Meet in public places first. 3) Tell a friend your plans and share your location. 4) Take your own transportation. 5) If a profile asks for money or services—report it immediately.</p>
+      <p>Use the Report button on profiles. We review and may remove content or accounts to keep things safe.</p>
+    </div>
+  </div>
+</div>
+
 <script>
-/* ====== YOUR SUPABASE VALUES (from you) ====== */
+/* ====== YOUR SUPABASE VALUES (from earlier) ====== */
 const SUPABASE_URL = "https://gioiqevjzrbdnspwapcg.supabase.co";
 const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdpb2lxZXZqenJiZG5zcHdhcGNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIwNTYyODgsImV4cCI6MjA3NzYzMjI4OH0.PFJbiVU3z_YU09ufNL8QvLiSvABSqZ5bFkG4exAE7Q0";
 
@@ -367,13 +493,11 @@ let IS_ADMIN=false;
 async function refreshAuthUI(){
   const { data:{ user } } = await sb.auth.getUser();
   ME = user;
-  $("#authStatus").textContent = ME ? `Signed in as ${ME.email}` : "You’re not signed in. Type your email and tap the purple button.";
-  // show admin tab if admin
+  $("#authStatus").textContent = ME ? `Signed in as ${ME.email}` : "You’re not signed in. Use your email (magic link).";
   if(ME){
     const { data:adm } = await sb.from('admins').select('user_id').eq('user_id', ME.id).maybeSingle();
     IS_ADMIN = !!adm;
   } else IS_ADMIN=false;
-  document.querySelector('a[href="#admin"]').style.display = IS_ADMIN ? "inline-flex" : "none";
   $("#admin").style.display = IS_ADMIN ? "block":"none";
 }
 $("#authGo").onclick = async ()=>{
@@ -395,6 +519,13 @@ function fillStatePicker(){
   });
   s.value = localStorage.getItem("vibes_state") || "";
   s.onchange = ()=>{ localStorage.setItem("vibes_state", s.value); renderAds(); };
+}
+function fillStatesMulti(){
+  const m=$("#buyStatesSelect"); m.innerHTML="";
+  US_STATES.filter(Boolean).forEach(st=>{
+    const o=document.createElement("option"); o.value=st; o.textContent=st;
+    m.appendChild(o);
+  });
 }
 
 /* ====== PROFILES ====== */
@@ -470,9 +601,6 @@ async function fetchApprovedAds(){
     .order('created_at',{ascending:false});
   return data||[];
 }
-function statesFromChecks(){
-  return Array.from(document.querySelectorAll('.state-check:checked')).map(i=>i.value);
-}
 async function submitAd({title,link,image_url,states,is_free,payment_link,starts,ends}){
   if(!ME) return alert("Sign in first.");
   const { error } = await sb.from('ads').insert({
@@ -483,39 +611,24 @@ async function submitAd({title,link,image_url,states,is_free,payment_link,starts
     payment_link,
     starts_at: starts||null,
     ends_at: ends||null,
-    status: is_free ? 'pending':'pending'
+    status: 'pending'
   });
   if(error) alert(error.message); else alert("Ad submitted! We'll review it soon.");
 }
-function renderStatesChecks(containerId){
-  const el = document.getElementById(containerId);
-  el.innerHTML="";
-  US_STATES.slice(1).forEach(st=>{
-    const w=document.createElement("label");
-    w.className="flex items-center gap-2 text-sm";
-    w.innerHTML=`<input type="checkbox" class="state-check" value="${st}"/> ${st}`;
-    el.appendChild(w);
-  });
-}
 $("#buySubmit").onclick = async ()=>{
   const title=$("#buyTitle").value.trim(), link=$("#buyLink").value.trim(), image=$("#buyImg").value.trim();
-  const states=statesFromChecks();
+  const states=[...$("#buyStatesSelect").selectedOptions].map(o=>o.value);
   const pay=$("#buyPay").value.trim(); const starts=$("#buyStart").value||null; const ends=$("#buyEnd").value||null;
   if(!title||!link||!image) return alert("Fill title, link, and image.");
-  if(!states.length) return alert("Choose at least one state.");
   await submitAd({title,link,image_url:image,states,is_free:false,payment_link:pay,starts,ends});
 };
 $("#buyMyFree").onclick = async ()=>{
-  if(!IS_ADMIN) return alert("Admins only for house ads.");
   const title=$("#buyTitle").value.trim(), link=$("#buyLink").value.trim(), image=$("#buyImg").value.trim();
-  const states=statesFromChecks();
+  const states=[...$("#buyStatesSelect").selectedOptions].map(o=>o.value);
   const starts=$("#buyStart").value||null; const ends=$("#buyEnd").value||null;
   if(!title||!link||!image) return alert("Fill title, link, and image.");
   await submitAd({title,link,image_url:image,states,is_free:true, payment_link:null,starts,ends});
 };
-const payNowBtn = $("#buyPayNow");
-$("#buyPay").addEventListener("input", ()=>{ payNowBtn.href = $("#buyPay").value.trim() || "#"; });
-
 function renderAdsCard(ad){
   return `<div class="card p-3 ad-card">
     <a href="${ad.link}" target="_blank" rel="noopener">
@@ -543,7 +656,7 @@ async function renderAds(){
   filtered.forEach(ad=>{ const d=document.createElement("div"); d.innerHTML=renderAdsCard(ad); grid.appendChild(d); });
 }
 
-/* ====== ADMIN (pending/approve/reject) ====== */
+/* ====== ADMIN ====== */
 async function adminList(status){
   const { data } = await sb.from('ads').select('*').eq('status',status).order('created_at',{ascending:false});
   return data||[];
@@ -580,7 +693,7 @@ async function loadAdmin(){
     A.appendChild(d);
   });
   P.querySelectorAll("[data-approve]").forEach(b=>b.onclick=()=>adminApprove(Number(b.dataset.approve), false));
-  P.querySelectorAll("[data-approve-paid]").forEach(b=>b.onclick=()=>adminApprove(Number(b.getAttribute("data-approve-paid")), true));
+  P.querySelectorAll("[data-approve-paid]").forEach(b=>b.onclick=()=>adminApprove(Number(b.dataset.approvePaid || b.getAttribute("data-approve-paid")), true));
   P.querySelectorAll("[data-reject]").forEach(b=>b.onclick=()=>adminReject(Number(b.dataset.reject)));
 }
 
@@ -608,7 +721,7 @@ async function reloadDeck(){
   currentCardIds = filterDeck();
   renderGrid(); renderStack(); renderMatches();
 }
-function roomsLabel(r){ const el = document.querySelector(`#roomsBar .room[data-room="${r}"]`); return el ? el.textContent.trim() : r; }
+function roomsLabel(r){ const el = $(`#roomsBar .room[data-room="${r}"]`); return el ? el.textContent.trim() : r; }
 let activeRoom="all";
 const ROOM_MAP = {
   all: { interests: [], goal: "" },
@@ -624,18 +737,15 @@ const ROOM_MAP = {
   game: { interests: ["gaming"], goal: "" },
   nsa: { interests: [], goal: "Open to exploring" }
 };
-document.querySelectorAll("#roomsBar .room").forEach(btn=>btn.addEventListener("click", ()=> setRoom(btn.dataset.room)));
+$$("#roomsBar .room").forEach(btn=>btn.addEventListener("click", ()=> setRoom(btn.dataset.room)));
 function setRoom(r){
   activeRoom = r;
-  document.querySelectorAll("#roomsBar .room").forEach(b=>b.classList.toggle("active", b.dataset.room===r));
-  document.querySelector("#roomHint").textContent = r==="all" ? "Showing everyone." : `Showing people for “${roomsLabel(r)}”.`;
+  $$("#roomsBar .room").forEach(b=>b.classList.toggle("active", b.dataset.room===r));
+  $("#roomHint").textContent = r==="all" ? "Showing everyone." : `Showing people for “${roomsLabel(r)}”.`;
   currentCardIds = filterDeck(); renderStack(); renderGrid();
 }
 function filterDeck(){
-  const min=Number(document.querySelector("#ageMin").value)||18,
-        max=Number(document.querySelector("#ageMax").value)||100,
-        dist=Number(document.querySelector("#distance").value)||50,
-        gSel=document.querySelector("#goalsFilter").value;
+  const min=Number($("#ageMin").value)||18, max=Number($("#ageMax").value)||100, dist=Number($("#distance").value)||50, gSel=$("#goalsFilter").value;
   const room = ROOM_MAP[activeRoom] || ROOM_MAP.all;
   const wanted=(room.interests||[]).map(s=>s.toLowerCase());
   return DECK.filter(p=>{
@@ -652,7 +762,7 @@ function filterDeck(){
   }).map(p=>p.id);
 }
 function renderGrid(){
-  const g=document.querySelector("#grid"); g.innerHTML="";
+  const g=$("#grid"); g.innerHTML="";
   const ids = filterDeck();
   ids.map(getP).filter(Boolean).slice(0,30).forEach(p=>{
     const d=document.createElement("div"); d.className="card p-3";
@@ -665,7 +775,7 @@ function renderGrid(){
 
 /* Swipe */
 function renderStack(){
-  const s=document.querySelector("#stack"); s.innerHTML="";
+  const s=$("#stack"); s.innerHTML="";
   if(!currentCardIds.length) currentCardIds=filterDeck();
   currentCardIds.slice(0,4).forEach((id,idx)=>{
     const p=getP(id);
@@ -687,10 +797,10 @@ function enableDrag(card){
 }
 function fly(card,dir){ card.style.transition="all .25s ease-out"; const x=dir===1?500:dir===-1?-500:0, y=dir===0?-500:50; card.style.transform=`translateX(${x}px) translateY(${y}px) rotate(${dir*25}deg)`; setTimeout(removeTop,220); }
 document.addEventListener("keydown",(e)=>{ if(e.key==="ArrowLeft") passFlow(topId()); if(e.key==="ArrowRight") likeFlow(topId()); if(e.key==="ArrowUp") superFlow(topId()); });
-document.getElementById("btnPass").onclick=()=>passFlow(topId());
-document.getElementById("btnLike").onclick=()=>likeFlow(topId());
-document.getElementById("btnSuper").onclick=()=>superFlow(topId());
-document.getElementById("btnOpen").onclick=()=>openProfile(topId());
+$("#btnPass").onclick=()=>passFlow(topId());
+$("#btnLike").onclick=()=>likeFlow(topId());
+$("#btnSuper").onclick=()=>superFlow(topId());
+$("#btnOpen").onclick=()=>openProfile(topId());
 
 async function swipeLike(targetId){
   await sb.from('swipes').insert({ swiper: ME.id, swiped: targetId, action:'like' });
@@ -711,21 +821,21 @@ async function superFlow(id){ if(!ME) return alert("Sign in first."); if(!id) re
 /* View profile modal */
 function openProfile(id){
   if(!id) return; const p=getP(id); if(!p) return;
-  document.getElementById("pmName").textContent=`${p.name}, ${p.age}`;
-  document.getElementById("pmMeta").textContent=`${p.city} • ${p.pronouns||""} • ${p.goals} • ${p.distance} mi`;
-  document.getElementById("pmInterests").innerHTML=(p.interests||[]).map(i=>`<span class="chip">${i}</span>`).join("");
-  document.getElementById("pmBio").textContent=p.bio||"";
-  const gal=document.getElementById("pmGallery"); gal.innerHTML="";
+  $("#pmName").textContent=`${p.name}, ${p.age}`;
+  $("#pmMeta").textContent=`${p.city} • ${p.pronouns||""} • ${p.goals} • ${p.distance} mi`;
+  $("#pmInterests").innerHTML=(p.interests||[]).map(i=>`<span class="chip">${i}</span>`).join("");
+  $("#pmBio").textContent=p.bio||"";
+  const gal=$("#pmGallery"); gal.innerHTML="";
   (p.photos&&p.photos.length?p.photos:[avatarPNG(p.name)]).forEach(src=>{ const img=document.createElement("img"); img.src=src; img.className="rounded-xl border"; img.alt=p.name; gal.appendChild(img); });
-  document.getElementById("pmLike").onclick=()=>{ likeFlow(p.id); closeModal(); };
-  document.getElementById("pmSuper").onclick=()=>{ superFlow(p.id); closeModal(); };
-  document.getElementById("pmMsg").onclick=()=>{ alert("Message after matching. Like each other to open chat."); closeModal(); };
-  document.getElementById("pmReport").onclick=()=>{ alert("Reported. (Add admin review later.)"); closeModal(); };
-  document.getElementById("pmBlock").onclick=()=>{ DECK=DECK.filter(x=>x.id!==p.id); renderGrid(); renderStack(); closeModal(); };
-  document.getElementById("profileModal").classList.remove("hide");
+  $("#pmLike").onclick=()=>{ likeFlow(p.id); closeModal(); };
+  $("#pmSuper").onclick=()=>{ superFlow(p.id); closeModal(); };
+  $("#pmMsg").onclick=()=>{ alert("Message after matching. Like each other to open chat."); closeModal(); };
+  $("#pmReport").onclick=()=>{ alert("Reported. (Admin review)"); closeModal(); };
+  $("#pmBlock").onclick=()=>{ DECK=DECK.filter(x=>x.id!==p.id); renderGrid(); renderStack(); closeModal(); };
+  $("#profileModal").classList.remove("hide");
 }
-function closeModal(){ document.getElementById("profileModal").classList.add("hide"); }
-document.getElementById("pmClose").onclick=closeModal;
+function closeModal(){ $("#profileModal").classList.add("hide"); }
+$("#pmClose").onclick=closeModal;
 
 /* Matches & chat */
 async function myMatches(){
@@ -737,8 +847,8 @@ async function myMatches(){
   return data || [];
 }
 async function renderMatches(){
-  if(!ME){ document.getElementById("matchList").innerHTML="Sign in to see matches."; return; }
-  const box=document.getElementById("matchList"); box.innerHTML="";
+  if(!ME){ $("#matchList").innerHTML="Sign in to see matches."; return; }
+  const box=$("#matchList"); box.innerHTML="";
   const list = await myMatches();
   if(!list.length){ box.innerHTML=`<div class="small">No matches yet. Like people to match.</div>`; return; }
   for(const m of list){
@@ -768,43 +878,60 @@ async function openChat(matchId){
   const { data: m } = await sb.from('matches').select('id, user_a, user_b').eq('id', activeChatId).single();
   const otherId = (m.user_a===ME.id)? m.user_b : m.user_a;
   const { data: p } = await sb.from('profiles').select('display_name').eq('id', otherId).maybeSingle();
-  document.getElementById("chatHeader").textContent = `Chatting with ${p?.display_name || "Someone"}`;
+  $("#chatHeader").textContent = `Chatting with ${p?.display_name || "Someone"}`;
   const msgs = await loadMessages(activeChatId);
-  const box=document.getElementById("chatBox"); box.innerHTML="";
+  const box=$("#chatBox"); box.innerHTML="";
   msgs.forEach(renderMsg);
   box.scrollTop = box.scrollHeight;
   await openChatRealtime(activeChatId, (msg)=>{ renderMsg(msg); box.scrollTop=box.scrollHeight; });
 }
 function renderMsg(msg){
-  const box=document.getElementById("chatBox");
+  const box=$("#chatBox");
   const mine = (msg.sender===ME?.id);
   const d=document.createElement("div");
   d.className=`mb-2 flex ${mine?'justify-end':''}`;
   d.innerHTML=`<div class="max-w-[70%] ${mine?'bg-purple-600 text-white':'bg-slate-100'} px-3 py-2 rounded-xl">${escapeHTML(msg.text)}</div>`;
   box.appendChild(d);
 }
-document.getElementById("sendMsg").onclick = async ()=>{
+$("#sendMsg").onclick = async ()=>{
   if(!activeChatId) return alert("Open a chat first.");
   if(!ME) return alert("Sign in first.");
-  const t=document.getElementById("chatInput").value.trim(); if(!t) return;
-  document.getElementById("chatInput").value="";
+  const t=$("#chatInput").value.trim(); if(!t) return;
+  $("#chatInput").value="";
   await sb.from('messages').insert({ match_id: activeChatId, sender: ME.id, text: t });
 };
 
+/* ====== Landing Quick Form wiring ====== */
+function clampNum(v,min,max){ const n=Number(v)||min; return Math.min(max, Math.max(min, n)); }
+$("#viewSingles").onclick = ()=>{
+  // Apply age
+  const amin=clampNum($("#ageMinLanding").value,18,100);
+  const amax=clampNum($("#ageMaxLanding").value,amin,100);
+  $("#ageMin").value=amin;
+  $("#ageMax").value=amax;
+  // Distance heuristic: if ZIP entered, assume 25 miles; else 50
+  const hasZip = ($("#zip").value||"").trim().length>=3;
+  $("#distance").value = hasZip? 25 : 50;
+  // Jump to Discover & render
+  currentCardIds = filterDeck();
+  renderStack(); renderGrid();
+  location.hash = "#trending";
+};
+
+/* ====== Footer scripting ====== */
+document.querySelector('#yr').textContent = new Date().getFullYear();
+const openModal = id => document.getElementById(id).style.display='flex';
+const closeModal = id => document.getElementById(id).style.display='none';
+document.getElementById('openTerms').onclick = ()=>openModal('termsModal');
+document.getElementById('openPrivacy').onclick = ()=>openModal('privacyModal');
+document.getElementById('openSafety').onclick = ()=>openModal('safetyModal');
+document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click', ()=>closeModal(b.getAttribute('data-close'))));
+document.querySelectorAll('.modal-scrim').forEach(s=>s.addEventListener('click', (e)=>{ if(e.target===s) s.style.display='none'; }));
+
 /* ====== Bootstrap ====== */
-function renderStatesChecks(containerId){
-  const el = document.getElementById(containerId);
-  el.innerHTML="";
-  US_STATES.slice(1).forEach(st=>{
-    const w=document.createElement("label");
-    w.className="flex items-center gap-2 text-sm";
-    w.innerHTML=`<input type="checkbox" class="state-check" value="${st}"/> ${st}`;
-    el.appendChild(w);
-  });
-}
 async function bootstrap(){
   fillStatePicker();
-  renderStatesChecks("buyStatesWrap");
+  fillStatesMulti();
   await refreshAuthUI();
   if(ME){ MY_PROFILE = await loadMyProfile(); fillProfileForm(); }
   await reloadDeck();
@@ -813,122 +940,7 @@ async function bootstrap(){
 }
 bootstrap();
 </script>
-  <!-- ==================== STICKY ACTION BAR (mobile) ==================== -->
-<style>
-  .sticky-cta {
-    position: sticky; bottom: 0; z-index: 50;
-    background: #ffffffcc; backdrop-filter: blur(6px);
-    border-top: 1px solid #e2e8f0;
-  }
-  @media (min-width: 768px){ .sticky-cta{ display:none; } }
-</style>
-<div class="sticky-cta">
-  <div class="max-w-6xl mx-auto px-4 py-3 grid grid-cols-3 gap-2">
-    <a href="#profile" class="btn btn-primary w-full">Create Profile</a>
-    <a href="#match" class="btn btn-rose w-full">Swipe</a>
-    <a href="#ad-self" class="btn btn-accent w-full">Buy Ad</a>
-  </div>
-</div>
-
-<!-- ==================== FOOTER (Terms / Privacy / Safety) ==================== -->
-<footer class="mt-10 border-t border-slate-200">
-  <div class="max-w-6xl mx-auto px-4 py-8 grid md:grid-cols-3 gap-4">
-    <div>
-      <div class="text-xl font-extrabold">Vibes</div>
-      <p class="small mt-2">Simple, consent-first dating. 18+ only. Keep it friendly and respectful.</p>
-      <div class="mt-3 flex gap-2">
-        <!-- Your donate link (already provided) -->
-        <a class="btn btn-primary" href="https://www.paypal.com/donate/?hosted_button_id=NYAEX2BAXQ6ZJ" target="_blank" rel="noopener">Donate</a>
-      </div>
-    </div>
-    <div>
-      <h4 class="font-bold text-lg">Important</h4>
-      <ul class="small mt-2 list-disc pl-5">
-        <li>18+ only. No explicit content.</li>
-        <li>No escorting / paid arrangements.</li>
-        <li>Meet in public; tell a friend.</li>
-        <li>Use the Report button for issues.</li>
-      </ul>
-    </div>
-    <div>
-      <h4 class="font-bold text-lg">Legal</h4>
-      <div class="mt-2 flex flex-wrap gap-2">
-        <button class="btn btn-ghost" id="openTerms">Terms</button>
-        <button class="btn btn-ghost" id="openPrivacy">Privacy</button>
-        <button class="btn btn-ghost" id="openSafety">Safety</button>
-      </div>
-    </div>
-  </div>
-  <div class="max-w-6xl mx-auto px-4 pb-6 small text-slate-500">
-    © <span id="yr"></span> independentplaymates.com • All rights reserved.
-  </div>
-</footer>
-
-<!-- ===== Modals (tiny text you can edit later) ===== -->
-<style>
-  .modal-scrim{ position:fixed; inset:0; background:rgba(0,0,0,.4); display:none; align-items:center; justify-content:center; z-index:60; }
-  .modal-card{ max-width:900px; width:96%; max-height:90vh; overflow:auto }
-</style>
-
-<div id="termsModal" class="modal-scrim">
-  <div class="card p-5 modal-card">
-    <div class="flex items-center justify-between">
-      <h3 class="text-2xl font-bold">Terms of Use</h3>
-      <button class="btn btn-ghost" data-close="termsModal">✖</button>
-    </div>
-    <div class="small mt-3 space-y-2">
-      <p>Welcome. By using this site, you agree to: (1) be 18+; (2) keep content PG-13; (3) no escorting/paid arrangements; (4) be respectful; (5) comply with laws; (6) accept that matches/messages are not guaranteed; (7) we may remove content/profiles for safety or policy reasons.</p>
-      <p>This site is provided “as is.” We do not guarantee uninterrupted service, matches, or outcomes. Use at your own risk.</p>
-      <p>We may update these Terms anytime. Continued use = acceptance. Contact Admin for questions or concerns.</p>
-    </div>
-  </div>
-</div>
-
-<div id="privacyModal" class="modal-scrim">
-  <div class="card p-5 modal-card">
-    <div class="flex items-center justify-between">
-      <h3 class="text-2xl font-bold">Privacy Policy</h3>
-      <button class="btn btn-ghost" data-close="privacyModal">✖</button>
-    </div>
-    <div class="small mt-3 space-y-2">
-      <p>We use Supabase for authentication, database, storage, and realtime chat. We store your profile data and photos you upload, and show your profile to other users. We may collect basic analytics (page views, clicks) to improve the site.</p>
-      <p>We don’t sell personal data. We display ads; advertisers provide their own links. Use caution when visiting external links.</p>
-      <p>You can delete or edit your profile data through your account. For removal requests or safety issues, use the Report button or contact Admin.</p>
-    </div>
-  </div>
-</div>
-
-<div id="safetyModal" class="modal-scrim">
-  <div class="card p-5 modal-card">
-    <div class="flex items-center justify-between">
-      <h3 class="text-2xl font-bold">Safety Tips</h3>
-      <button class="btn btn-ghost" data-close="safetyModal">✖</button>
-    </div>
-    <div class="small mt-3 space-y-2">
-      <p>1) Keep chats on the app until you feel comfortable. 2) Meet in public places first. 3) Tell a friend your plans and share your location. 4) Take your own transportation. 5) If a profile asks for money or services—report it immediately.</p>
-      <p>Use the Report button on profiles. We review and may remove content or accounts to keep things safe.</p>
-    </div>
-  </div>
-</div>
-
-<script>
-  // Footer year
-  document.querySelector('#yr').textContent = new Date().getFullYear();
-  // Open modals
-  const open = id => document.getElementById(id).style.display = 'flex';
-  const close = id => document.getElementById(id).style.display = 'none';
-  document.getElementById('openTerms').onclick = ()=>open('termsModal');
-  document.getElementById('openPrivacy').onclick = ()=>open('privacyModal');
-  document.getElementById('openSafety').onclick = ()=>open('safetyModal');
-  document.querySelectorAll('[data-close]').forEach(btn=>{
-    btn.addEventListener('click', ()=> close(btn.getAttribute('data-close')));
-  });
-  // Close if you click outside card
-  document.querySelectorAll('.modal-scrim').forEach(s=>{
-    s.addEventListener('click', (e)=>{ if(e.target===s) s.style.display='none'; });
-  });
-</script>
-
 </body>
 </html>
+
 
