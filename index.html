@@ -1,946 +1,489 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>independentplaymates — Free Dating · Live Chat · Local Ads</title>
-<meta name="description" content="Free, simple dating: sign in, make a profile, swipe, match, and chat in real time. 18+, consent-first. State-targeted ads."/>
-<link rel="canonical" href="https://independentplaymates.com/"/>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-<style>
-:root{--ink:#0f172a;--muted:#475569;--line:#e2e8f0;--primary:#7c3aed;--accent:#10b981;--rose:#f43f5e;--amber:#f59e0b}
-html,body{background:#fff;color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
-.card{border:1px solid var(--line);border-radius:18px;background:#fff}
-.btn{padding:.9rem 1.1rem;border-radius:16px;display:inline-flex;gap:.6rem;align-items:center;justify-content:center;font-size:1rem}
-.btn-ghost{border:2px solid var(--line);background:#fff}
-.btn-primary{background:var(--primary);color:#fff;box-shadow:0 8px 22px rgba(124,58,237,.16)}
-.btn-accent{background:var(--accent);color:#fff}
-.btn-rose{background:var(--rose);color:#fff}
-.badge{font-size:.9rem;padding:.25rem .6rem;border-radius:.6rem;background:#ecfeff;color:#155e75;border:1px solid #a5f3fc}
-.section{padding:24px}
-.small{font-size:.95rem;color:#475569}
-.hero{background:radial-gradient(1200px 600px at 15% -20%, rgba(124,58,237,.10), transparent),radial-gradient(900px 500px at 110% -10%, rgba(16,185,129,.10), transparent)}
-.grid-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
-.avatar{width:100%;height:230px;border-radius:16px;object-fit:cover;border:1px solid var(--line);background:#eee}
-.chip{display:inline-block;border:2px solid var(--line);border-radius:999px;padding:.35rem .75rem;margin:.15rem;font-size:.9rem}
-.swipe{position:relative;height:560px}
-.swipe-card{width:100%;max-width:420px;aspect-ratio:3/4;border-radius:22px;overflow:hidden;position:absolute;left:50%;transform:translateX(-50%);box-shadow:0 12px 30px rgba(2,6,23,.12)}
-.swipe-photo{width:100%;height:62%;object-fit:cover;background:#000}
-.swipe-info{padding:14px 16px}
-.hide{display:none!important}
-.room.active{background:#111;color:#fff;border-color:#111}
-input,select,textarea{width:100%;border:2px solid var(--line);border-radius:14px;padding:.8rem .9rem;font-size:1rem}
-label{font-weight:700}
-kbd{background:#111;color:#fff;border-radius:8px;padding:.2rem .45rem;font-size:.85rem}
-.help-bubble{background:#fff3c4;border:2px dashed #f59e0b;border-radius:14px;padding:.6rem .8rem}
-.notice{background:#ecfeff;border:2px solid #a5f3fc;border-radius:14px;padding:.6rem .8rem}
-.ad-card img{max-height:280px;object-fit:cover}
-
-/* Landing (Match-like) */
-.landing h1{letter-spacing:-.02em}
-.quick-form label{font-weight:600}
-.quick-form .row{display:grid;grid-template-columns:1fr;gap:10px}
-@media(min-width:640px){ .quick-form .row{grid-template-columns:1fr 1fr} }
-@media(min-width:768px){ .quick-form .row3{grid-template-columns:1fr 1fr 1fr} }
-
-/* Sticky mobile CTA */
-.sticky-cta {position: sticky; bottom: 0; z-index: 50; background: #ffffffee; backdrop-filter: blur(6px); border-top: 1px solid #e2e8f0;}
-@media (min-width: 768px){ .sticky-cta{ display:none; } }
-
-/* Footer modals */
-.modal-scrim{ position:fixed; inset:0; background:rgba(0,0,0,.4); display:none; align-items:center; justify-content:center; z-index:60; }
-.modal-card{ max-width:900px; width:96%; max-height:90vh; overflow:auto }
-
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Control vs Approval vs Protection — 10,000+ Trainer</title>
+  <style>
+    :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+    body { margin: 0; background: #0b0d10; color: #e9eef7; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 20px; }
+    .card { background: #121722; border: 1px solid #23304a; border-radius: 14px; padding: 18px; box-shadow: 0 8px 26px rgba(0,0,0,.35); }
+    h1 { font-size: 18px; margin: 0 0 12px; font-weight: 700; }
+    .statement { font-size: 22px; line-height: 1.35; padding: 14px 14px; background: #0f1420; border: 1px solid #22314d; border-radius: 12px; }
+    .row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+    button {
+      appearance: none; border: 1px solid #2a3a5d; background: #111a2c; color: #e9eef7;
+      padding: 10px 12px; border-radius: 10px; cursor: pointer; font-weight: 650;
+    }
+    button:hover { background: #14203a; }
+    button:disabled { opacity: .5; cursor: not-allowed; }
+    .pill { display: inline-block; padding: 6px 10px; border-radius: 999px; border: 1px solid #2a3a5d; background: #0f1420; font-size: 12px; }
+    .meta { display:flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; opacity:.95; }
+    .feedback { margin-top: 12px; padding: 12px; border-radius: 12px; border: 1px solid #2a3a5d; background: #0f1420; }
+    .good { border-color: #2e6d3d; background: #0f1b13; }
+    .bad  { border-color: #7a2f2f; background: #1b0f10; }
+    .reason { margin-top: 6px; opacity: .95; }
+    .grid { display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+    @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+    input[type="number"] { width: 120px; padding: 8px; border-radius: 10px; border: 1px solid #2a3a5d; background:#0f1420; color:#e9eef7; }
+    select { padding: 8px; border-radius: 10px; border: 1px solid #2a3a5d; background:#0f1420; color:#e9eef7; }
+    .small { font-size: 12px; opacity: .9; line-height: 1.4; }
+    .kpi { display:flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+    .kpi .box { flex: 1; min-width: 180px; padding: 10px; border-radius: 12px; border: 1px solid #2a3a5d; background:#0f1420; }
+    .box b { font-size: 14px; }
+    .box div { font-size: 12px; opacity:.9; margin-top: 2px; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono"; font-size: 12px; opacity: .9; }
+  </style>
 </head>
-<body class="antialiased">
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Control vs Approval vs Protection — 10,000+ Statements Trainer</h1>
 
-<!-- TOP NAV -->
-<header class="sticky top-0 z-40 bg-white/92 backdrop-blur border-b border-slate-200">
-  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-    <div class="flex items-center gap-3">
-      <div class="text-2xl font-extrabold">independentplaymates</div>
-      <span class="badge">Free · 18+ · Consent-First</span>
-    </div>
-    <nav class="hidden md:flex gap-4 text-sm">
-      <a href="#ads" class="hover:underline">Home</a>
-      <a href="#rooms" class="hover:underline">Rooms</a>
-      <a href="#trending" class="hover:underline">Discover</a>
-      <a href="#match" class="hover:underline">Swipe</a>
-      <a href="#inbox" class="hover:underline">Messages</a>
-      <a href="#profile" class="hover:underline">My Profile</a>
-      <a href="#support" class="hover:underline">Donate</a>
-      <a href="#ad-self" class="hover:underline">Buy Ad</a>
-      <a href="#admin" class="hover:underline">Admin</a>
-    </nav>
-  </div>
-</header>
+      <div class="statement" id="stmt">Loading…</div>
 
-<!-- AUTH BAR -->
-<section class="max-w-6xl mx-auto px-4 mt-4">
-  <div class="card p-4 flex flex-wrap items-center justify-between gap-3">
-    <div class="flex-1">
-      <div id="authStatus" class="small">You’re not signed in. Use your email (magic link).</div>
-    </div>
-    <div class="flex items-center gap-2 w-full sm:w-auto">
-      <input id="authEmail" type="email" placeholder="you@email.com" class="w-full sm:w-64"/>
-      <button id="authGo" class="btn btn-primary w-full sm:w-auto">Send magic link</button>
-      <button id="authOut" class="btn btn-ghost w-full sm:w-auto">Sign out</button>
-    </div>
-  </div>
-</section>
+      <div class="row">
+        <button id="btnC">CONTROL</button>
+        <button id="btnA">APPROVAL</button>
+        <button id="btnP">PROTECTION</button>
+        <button id="btnReveal">Reveal</button>
+        <button id="btnNext">Next</button>
+      </div>
 
-<!-- HERO (Match-like landing) -->
-<section class="hero landing">
-  <div class="max-w-6xl mx-auto px-4 section grid lg:grid-cols-2 gap-8 items-center">
-    <div>
-      <h1 class="text-5xl font-extrabold leading-tight">It’s time to date differently.</h1>
-      <p class="mt-3 small">Sign in free. Make your profile. Swipe and chat after you match. Real people. Simple rules. 18+ only.</p>
+      <div class="meta">
+        <span class="pill" id="modePill">Mode: Mixed</span>
+        <span class="pill" id="countPill">Generated: 0</span>
+        <span class="pill" id="poolPill">Pool: 10,000+</span>
+        <span class="pill" id="streakPill">Streak: 0</span>
+      </div>
 
-      <!-- Quick Start Form -->
-      <div class="card p-4 mt-5 quick-form">
-        <div class="row3">
-          <div>
-            <label>Who are you?</label>
-            <select id="whoAmI">
-              <option value="">Prefer not to say</option>
-              <option>She/Her</option><option>He/Him</option><option>They/Them</option>
-            </select>
-          </div>
-          <div>
-            <label>Who are you interested in?</label>
-            <select id="whoWant">
-              <option value="">Anyone kind</option>
-              <option>Women</option><option>Men</option><option>Everyone</option>
-            </select>
-          </div>
-          <div>
-            <label>ZIP code</label>
-            <input id="zip" inputmode="numeric" placeholder="e.g., 10001"/>
-          </div>
+      <div class="feedback" id="feedback" style="display:none;">
+        <div id="fbLine"></div>
+        <div class="reason" id="fbReason"></div>
+      </div>
+
+      <div class="kpi">
+        <div class="box">
+          <b>Score</b>
+          <div id="scoreLine">0 correct / 0 total</div>
         </div>
-        <div class="row mt-3">
-          <div>
-            <label>Between ages (min)</label>
-            <input id="ageMinLanding" type="number" min="18" max="100" value="25"/>
-          </div>
-          <div>
-            <label>Between ages (max)</label>
-            <input id="ageMaxLanding" type="number" min="18" max="100" value="45"/>
-          </div>
+        <div class="box">
+          <b>Accuracy</b>
+          <div id="accLine">0%</div>
         </div>
-        <div class="mt-3 grid sm:grid-cols-2 gap-2">
-          <button id="viewSingles" class="btn btn-primary w-full">View singles</button>
-          <a href="#profile" class="btn btn-ghost w-full">Join now (free)</a>
-        </div>
-        <p class="small mt-2 text-slate-500">We use this to personalize your experience.</p>
-      </div>
-
-      <p class="small mt-3 notice"><b>Safety:</b> Public first meet, bring your own transport, share your location with a friend. No explicit content or paid arrangements.</p>
-    </div>
-
-    <!-- Marketing blocks (text-only, no logic changed) -->
-    <div class="grid gap-3">
-      <div class="card p-4">
-        <h3 class="text-xl font-bold">Find what you’re looking for</h3>
-        <p class="small mt-1">Set your dating goals (“Long-term”, “Casual”, “Friendship first”) and match with people who want the same.</p>
-      </div>
-      <div class="card p-4">
-        <h3 class="text-xl font-bold">Highlights & common interests</h3>
-        <p class="small mt-1">Your Discover grid surfaces profiles that share your interests, location, and goals.</p>
-      </div>
-      <div class="card p-4">
-        <h3 class="text-xl font-bold">Values & conversations</h3>
-        <p class="small mt-1">Share what matters (kindness, growth, adventure). Icebreakers and rooms keep chats easy and respectful.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- =================== ADS HOMEPAGE =================== -->
-<section id="ads" class="max-w-6xl mx-auto px-4 section card">
-  <div class="flex items-center justify-between flex-wrap gap-3">
-    <h2 class="text-3xl font-bold">Local Promos</h2>
-    <div class="small">
-      <label for="statePick"><b>Your state:</b></label>
-      <select id="statePick"></select>
-    </div>
-  </div>
-  <p class="small mt-1">Ads show for your chosen state. Advertisers can buy state-targeted slots.</p>
-  <div id="adsGrid" class="grid-auto mt-3"></div>
-</section>
-
-<!-- ROOMS -->
-<section id="rooms" class="max-w-6xl mx-auto px-4 section card">
-  <div class="flex items-center justify-between">
-    <h2 class="text-3xl font-bold">Rooms (Tap to Filter)</h2>
-    <span id="roomHint" class="small text-slate-700">Pick a room. We filter Discover & Swipe.</span>
-  </div>
-  <div id="roomsBar" class="mt-3 flex flex-wrap gap-2">
-    <button class="chip room active" data-room="all">All</button>
-    <button class="chip room" data-room="coffee">Coffee lovers ☕</button>
-    <button class="chip room" data-room="live">Live music 🎸</button>
-    <button class="chip room" data-room="hike">Hikers 🥾</button>
-    <button class="chip room" data-room="books">Bookworms 📚</button>
-    <button class="chip room" data-room="film">Film buffs 🎬</button>
-    <button class="chip room" data-room="art">Artsy 🖼️</button>
-    <button class="chip room" data-room="yoga">Yogis 🧘</button>
-    <button class="chip room" data-room="run">Runners 🏃</button>
-    <button class="chip room" data-room="food">Foodies 🍜</button>
-    <button class="chip room" data-room="game">Gamers 🎮</button>
-    <button class="chip room" data-room="nsa">NSA (Adults Only) 🔥</button>
-  </div>
-  <p class="small mt-2 notice"><b>NSA Room rules:</b> 18+ only, respect & consent, no nudity/explicit content, no escorting or paid arrangements.</p>
-</section>
-
-<!-- DISCOVER -->
-<section id="trending" class="max-w-6xl mx-auto px-4 section card">
-  <div class="flex items-center justify-between">
-    <h2 class="text-3xl font-bold">Discover</h2>
-    <a href="#match" class="btn btn-rose">Go to Swipe</a>
-  </div>
-  <p class="small mt-1">Live profiles from Supabase.</p>
-  <div id="grid" class="grid-auto mt-3"></div>
-</section>
-
-<!-- SWIPE -->
-<section id="match" class="max-w-6xl mx-auto px-4 section card">
-  <div class="grid lg:grid-cols-3 gap-6">
-    <div class="lg:col-span-2">
-      <h2 class="text-3xl font-bold">Swipe</h2>
-      <p class="small">Drag or use keys: <kbd>→</kbd> Like, <kbd>←</kbd> Pass, <kbd>↑</kbd> Superlike.</p>
-      <div class="swipe mt-3" id="stack"></div>
-      <div class="mt-[580px] flex items-center justify-center gap-3">
-        <button id="btnPass" class="btn btn-ghost">🙅 Pass</button>
-        <button id="btnLike" class="btn btn-primary">👍 Like</button>
-        <button id="btnSuper" class="btn btn-accent">⭐ Superlike</button>
-        <button id="btnOpen" class="btn btn-ghost">👁 View</button>
-      </div>
-    </div>
-    <div class="card p-4">
-      <h3 class="font-bold text-2xl">Filters</h3>
-      <div class="help-bubble mt-1 small">Pick simple sliders. Tap <b>Apply</b>.</div>
-      <label class="mt-3 block small">Age Range</label>
-      <div class="grid grid-cols-2 gap-2">
-        <input id="ageMin" type="number" min="18" max="100" value="22"/>
-        <input id="ageMax" type="number" min="18" max="100" value="45"/>
-      </div>
-      <label class="mt-3 block small">Max Distance (miles)</label>
-      <input id="distance" type="number" min="1" max="500" value="50"/>
-      <label class="mt-3 block small">Goals</label>
-      <select id="goalsFilter">
-        <option value="">Any</option>
-        <option>Long-term relationship</option>
-        <option>Monogamous dating</option>
-        <option>Casual dating</option>
-        <option>Open to exploring</option>
-        <option>Friendship first</option>
-      </select>
-      <div class="mt-3 flex gap-2">
-        <button id="applyFilters" class="btn btn-ghost">Apply</button>
-        <button id="resetDeck" class="btn btn-ghost">Reset</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- INBOX -->
-<section id="inbox" class="max-w-6xl mx-auto px-4 section card">
-  <div class="grid lg:grid-cols-3 gap-6">
-    <div class="card p-4">
-      <h3 class="text-2xl font-bold">Matches</h3>
-      <div id="matchList" class="mt-3" style="max-height:340px;overflow:auto"></div>
-    </div>
-    <div class="lg:col-span-2 card p-4">
-      <div class="flex items-center justify-between">
-        <h3 class="text-2xl font-bold">Chat</h3>
-      </div>
-      <div id="chatHeader" class="mt-2 small"></div>
-      <div id="chatBox" class="mt-3 h-[380px] border border-slate-200 rounded-xl p-3" style="overflow:auto"></div>
-      <div class="mt-3 flex gap-2">
-        <input id="chatInput" placeholder="Type a nice message…"/>
-        <button id="sendMsg" class="btn btn-primary">Send</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROFILE -->
-<section id="profile" class="max-w-6xl mx-auto px-4 section card">
-  <h2 class="text-3xl font-bold">My Profile</h2>
-  <p class="small">Fill this out and press <b>Save Profile</b>. Add photos (up to 6).</p>
-  <div class="grid md:grid-cols-2 gap-4 mt-3">
-    <div><label>Display Name</label><input id="meName" placeholder="e.g., Alex"/></div>
-    <div><label>City</label><input id="meCity" placeholder="e.g., Brooklyn"/></div>
-    <div><label>Age</label><input id="meAge" type="number" min="18" max="100"/></div>
-    <div><label>Pronouns</label><input id="mePronouns" placeholder="she/her, he/him, they/them"/></div>
-    <div class="md:col-span-2">
-      <label>Relationship Goals</label>
-      <select id="meGoals">
-        <option value="">Select one…</option>
-        <option>Long-term relationship</option>
-        <option>Monogamous dating</option>
-        <option>Casual dating</option>
-        <option>Open to exploring</option>
-        <option>Friendship first</option>
-      </select>
-    </div>
-    <div class="md:col-span-2"><label>Interests (comma separated)</label><input id="meInterests" placeholder="hiking, coffee, books"/></div>
-    <div class="md:col-span-2"><label>About Me</label><textarea id="meBio" rows="3" placeholder="Say something kind and simple."></textarea></div>
-    <div class="md:col-span-2">
-      <label>Photos (up to 6)</label>
-      <input id="mePhotos" type="file" accept="image/*" multiple/>
-      <div id="mePhotoGrid" class="grid grid-cols-3 gap-2 mt-2"></div>
-    </div>
-  </div>
-  <div class="mt-4 flex flex-wrap gap-2">
-    <button id="saveMe" class="btn btn-primary">Save Profile</button>
-  </div>
-  <p class="small mt-2 notice">Uploading uses free Supabase Storage. Keep photos friendly. No explicit content.</p>
-</section>
-
-<!-- Donate -->
-<section id="support" class="max-w-6xl mx-auto px-4 section card">
-  <h2 class="text-3xl font-bold">Support This Project</h2>
-  <p class="small">It’s free to use. If you like it, you can donate—thank you! ❤️</p>
-  <div class="mt-3 flex gap-3">
-    <a class="btn btn-primary" href="https://www.paypal.com/donate/?hosted_button_id=NYAEX2BAXQ6ZJ" target="_blank" rel="noopener">Donate</a>
-  </div>
-</section>
-
-<!-- BUY ADS (Self-serve, owner approves) -->
-<section id="ad-self" class="max-w-6xl mx-auto px-4 section card">
-  <h2 class="text-3xl font-bold">Buy an Ad</h2>
-  <p class="small">Your ad shows on our homepage to people in the state(s) you choose. You’ll click <b>Pay Now</b>, then submit your ad for fast approval.</p>
-  <div class="grid md:grid-cols-2 gap-3 mt-3">
-    <div><label>Ad Title</label><input id="buyTitle" placeholder="e.g., Fast Legal Templates"/></div>
-    <div><label>Link (URL)</label><input id="buyLink" placeholder="https://example.com"/></div>
-    <div><label>Image URL</label><input id="buyImg" placeholder="https://picsum.photos/800"/></div>
-    <div>
-      <label>States (pick one or more)</label>
-      <select id="buyStatesSelect" multiple class="h-[160px]">
-        <!-- options filled by JS -->
-      </select>
-      <p class="small mt-1 text-slate-500">Hold Ctrl (Windows) / Cmd (Mac) to select multiple.</p>
-    </div>
-    <div><label>Payment Link (Stripe/PayPal)</label><input id="buyPay" placeholder="https://buy.stripe.com/..."/></div>
-    <div><label>Dates</label>
-      <div class="grid grid-cols-2 gap-2">
-        <input id="buyStart" type="date"/><input id="buyEnd" type="date"/>
-      </div>
-    </div>
-  </div>
-  <div class="mt-3 flex gap-2">
-    <button id="buySubmit" class="btn btn-primary">Submit Ad (Review)</button>
-    <button id="buyMyFree" class="btn btn-ghost">Post House Ad (Owner only)</button>
-  </div>
-</section>
-
-<!-- ADMIN (Approve Ads) -->
-<section id="admin" class="max-w-6xl mx-auto px-4 section card">
-  <h2 class="text-3xl font-bold">Admin</h2>
-  <p class="small">Only shows if your user_id is in <code>public.admins</code>.</p>
-  <div class="grid md:grid-cols-2 gap-3">
-    <div class="card p-3">
-      <h3 class="font-bold text-xl">Pending Ads</h3>
-      <div id="adminPending" class="mt-2" style="max-height:380px;overflow:auto"></div>
-    </div>
-    <div class="card p-3">
-      <h3 class="font-bold text-xl">Approved Ads</h3>
-      <div id="adminApproved" class="mt-2" style="max-height:380px;overflow:auto"></div>
-    </div>
-  </div>
-</section>
-
-<!-- PROFILE MODAL -->
-<div id="profileModal" class="hide" style="position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center">
-  <div class="card p-4" style="max-width:900px;width:96%;max-height:90vh;overflow:auto">
-    <div class="flex justify-between items-center">
-      <h3 id="pmName" class="text-2xl font-bold"></h3>
-      <button id="pmClose" class="btn btn-ghost">✖</button>
-    </div>
-    <div class="grid md:grid-cols-2 gap-4 mt-3">
-      <div id="pmGallery" class="grid grid-cols-3 gap-2"></div>
-      <div>
-        <div class="small" id="pmMeta"></div>
-        <div class="mt-2" id="pmInterests"></div>
-        <p class="small mt-2" id="pmBio"></p>
-        <div class="mt-3 flex flex-wrap gap-2">
-          <button id="pmLike" class="btn btn-primary">👍 Like</button>
-          <button id="pmSuper" class="btn btn-accent">⭐ Superlike</button>
-          <button id="pmMsg" class="btn btn-ghost">💬 Message</button>
-          <button id="pmReport" class="btn btn-ghost">Report</button>
-          <button id="pmBlock" class="btn btn-ghost">Block</button>
+        <div class="box">
+          <b>Last 50</b>
+          <div id="last50Line">—</div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
 
-<!-- MOBILE STICKY ACTION BAR -->
-<div class="sticky-cta">
-  <div class="max-w-6xl mx-auto px-4 py-3 grid grid-cols-3 gap-2">
-    <a href="#profile" class="btn btn-primary w-full">Create Profile</a>
-    <a href="#match" class="btn btn-rose w-full">Swipe</a>
-    <a href="#ad-self" class="btn btn-accent w-full">Buy Ad</a>
-  </div>
-</div>
+      <div class="grid">
+        <div class="card" style="background:#0f1420;">
+          <b>Settings</b>
+          <div class="row" style="margin-top:10px;">
+            <label class="small">Mode
+              <select id="mode">
+                <option value="mixed">Mixed</option>
+                <option value="control">Control only</option>
+                <option value="approval">Approval only</option>
+                <option value="protection">Protection only</option>
+              </select>
+            </label>
+            <label class="small">Statements per session
+              <input id="sessionN" type="number" min="10" max="100000" value="10000"/>
+            </label>
+            <button id="btnReset">Reset Session</button>
+          </div>
+          <div class="small" style="margin-top:8px;">
+            This app can generate <b>10,000+ unique</b> statements by combining templates (questions, phrases, contexts).
+            You can also keep going beyond 10,000.
+          </div>
+        </div>
 
-<!-- FOOTER (Tiny Terms/Privacy/Safety with modals) -->
-<footer class="mt-10 border-t border-slate-200">
-  <div class="max-w-6xl mx-auto px-4 py-8 grid md:grid-cols-3 gap-4">
-    <div>
-      <div class="text-xl font-extrabold">independentplaymates</div>
-      <p class="small mt-2">Simple, consent-first dating. 18+ only. Keep it friendly and respectful.</p>
-      <div class="mt-3 flex gap-2">
-        <a class="btn btn-primary" href="https://www.paypal.com/donate/?hosted_button_id=NYAEX2BAXQ6ZJ" target="_blank" rel="noopener">Donate</a>
+        <div class="card" style="background:#0f1420;">
+          <b>How to get fast at this</b>
+          <div class="small" style="margin-top:10px;">
+            Listen for the *function*:
+            <ul>
+              <li><b>Control</b>: defines rules, pushes decisions, sets terms, corrects.</li>
+              <li><b>Approval</b>: checks reception, seeks reassurance, over-explains, apologizes.</li>
+              <li><b>Protection</b>: scans risk, slows down, asks “what if,” wants escape routes.</li>
+            </ul>
+            Shortcut: <span class="mono">Control defines. Approval explains. Protection hesitates.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="small" style="margin-top:12px; opacity:.85;">
+        Tip: If you want this to feel like “audio training,” read the statement out loud, decide in 2 seconds, then check the answer.
       </div>
     </div>
-    <div>
-      <h4 class="font-bold text-lg">Important</h4>
-      <ul class="small mt-2 list-disc pl-5">
-        <li>18+ only. No explicit content.</li>
-        <li>No escorting / paid arrangements.</li>
-        <li>Meet in public; tell a friend.</li>
-        <li>Use the Report button for issues.</li>
-      </ul>
-    </div>
-    <div>
-      <h4 class="font-bold text-lg">Legal</h4>
-      <div class="mt-2 flex flex-wrap gap-2">
-        <button class="btn btn-ghost" id="openTerms">Terms</button>
-        <button class="btn btn-ghost" id="openPrivacy">Privacy</button>
-        <button class="btn btn-ghost" id="openSafety">Safety</button>
-      </div>
-    </div>
   </div>
-  <div class="max-w-6xl mx-auto px-4 pb-6 small text-slate-500">
-    © <span id="yr"></span> independentplaymates.com • All rights reserved.
-  </div>
-</footer>
-
-<!-- Modals -->
-<div id="termsModal" class="modal-scrim">
-  <div class="card p-5 modal-card">
-    <div class="flex items-center justify-between">
-      <h3 class="text-2xl font-bold">Terms of Use</h3>
-      <button class="btn btn-ghost" data-close="termsModal">✖</button>
-    </div>
-    <div class="small mt-3 space-y-2">
-      <p>By using this site, you agree to: (1) be 18+; (2) keep content PG-13; (3) no escorting/paid arrangements; (4) be respectful; (5) comply with laws; (6) accept that matches/messages are not guaranteed; (7) we may remove content/profiles for safety or policy reasons.</p>
-      <p>This site is provided “as is.” We do not guarantee uninterrupted service, matches, or outcomes. Use at your own risk.</p>
-      <p>We may update these Terms anytime. Continued use = acceptance.</p>
-    </div>
-  </div>
-</div>
-<div id="privacyModal" class="modal-scrim">
-  <div class="card p-5 modal-card">
-    <div class="flex items-center justify-between">
-      <h3 class="text-2xl font-bold">Privacy Policy</h3>
-      <button class="btn btn-ghost" data-close="privacyModal">✖</button>
-    </div>
-    <div class="small mt-3 space-y-2">
-      <p>We use Supabase for authentication, database, storage, and realtime chat. We store your profile data and photos you upload, and show your profile to other users. We may collect basic analytics (page views, clicks) to improve the site.</p>
-      <p>We don’t sell personal data. Advertisers provide their own links. Use caution when visiting external links.</p>
-      <p>You can edit or delete your profile via your account. For removal requests or safety issues, use the Report button or contact Admin.</p>
-    </div>
-  </div>
-</div>
-<div id="safetyModal" class="modal-scrim">
-  <div class="card p-5 modal-card">
-    <div class="flex items-center justify-between">
-      <h3 class="text-2xl font-bold">Safety Tips</h3>
-      <button class="btn btn-ghost" data-close="safetyModal">✖</button>
-    </div>
-    <div class="small mt-3 space-y-2">
-      <p>1) Keep chats on the app until you feel comfortable. 2) Meet in public places first. 3) Tell a friend your plans and share your location. 4) Take your own transportation. 5) If a profile asks for money or services—report it immediately.</p>
-      <p>Use the Report button on profiles. We review and may remove content or accounts to keep things safe.</p>
-    </div>
-  </div>
-</div>
 
 <script>
-/* ====== YOUR SUPABASE VALUES (from earlier) ====== */
-const SUPABASE_URL = "https://gioiqevjzrbdnspwapcg.supabase.co";
-const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdpb2lxZXZqenJiZG5zcHdhcGNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIwNTYyODgsImV4cCI6MjA3NzYzMjI4OH0.PFJbiVU3z_YU09ufNL8QvLiSvABSqZ5bFkG4exAE7Q0";
+(() => {
+  // --- Utility ---
+  const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+  const shuffle = arr => arr.map(v => [Math.random(), v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
 
-/* ====== Supabase client ====== */
-const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
-
-/* ====== Helpers ====== */
-const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
-const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
-function escapeHTML(s){ return String(s||"").replace(/[&<>"']/g, m=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[m])); }
-function avatarPNG(name){
-  const i=(name||"Me").trim(); const init=i.split(/\s+/).map(w=>w[0]||"").join("").slice(0,2).toUpperCase();
-  const hue=(init.charCodeAt(0)||65)*7%360, hue2=(hue+60)%360;
-  const c=document.createElement("canvas"); c.width=500; c.height=500;
-  const ctx=c.getContext("2d");
-  const grd=ctx.createLinearGradient(0,0,500,500);
-  grd.addColorStop(0,`hsl(${hue},70%,50%)`); grd.addColorStop(1,`hsl(${hue2},70%,50%)`);
-  ctx.fillStyle=grd; ctx.fillRect(0,0,500,500);
-  ctx.fillStyle="#fff"; ctx.font="bold 220px Arial, Helvetica, sans-serif";
-  ctx.textAlign="center"; ctx.textBaseline="middle"; ctx.fillText(init, 250, 270);
-  return c.toDataURL("image/png");
-}
-
-/* ====== Global ====== */
-let ME=null, MY_PROFILE=null, DECK=[], currentCardIds=[], activeChatId=null, MSG_SUB=null;
-let IS_ADMIN=false;
-
-/* ====== AUTH ====== */
-async function refreshAuthUI(){
-  const { data:{ user } } = await sb.auth.getUser();
-  ME = user;
-  $("#authStatus").textContent = ME ? `Signed in as ${ME.email}` : "You’re not signed in. Use your email (magic link).";
-  if(ME){
-    const { data:adm } = await sb.from('admins').select('user_id').eq('user_id', ME.id).maybeSingle();
-    IS_ADMIN = !!adm;
-  } else IS_ADMIN=false;
-  $("#admin").style.display = IS_ADMIN ? "block":"none";
-}
-$("#authGo").onclick = async ()=>{
-  const email = $("#authEmail").value.trim();
-  if(!email) return alert("Enter your email.");
-  const { error } = await sb.auth.signInWithOtp({ email, options:{ emailRedirectTo: window.location.href }});
-  if(error) alert(error.message); else alert("Check your email for a magic link. After you click it, come back here.");
-};
-$("#authOut").onclick = async ()=>{ await sb.auth.signOut(); ME=null; MY_PROFILE=null; alert("Signed out."); await refreshAuthUI(); bootstrap(); };
-sb.auth.onAuthStateChange(async ()=>{ await refreshAuthUI(); bootstrap(); });
-
-/* ====== STATES ====== */
-const US_STATES = ["","AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
-function fillStatePicker(){
-  const s=$("#statePick"); s.innerHTML="";
-  US_STATES.forEach(st=>{
-    const o=document.createElement("option"); o.value=st; o.textContent = st? st : "All states";
-    s.appendChild(o);
-  });
-  s.value = localStorage.getItem("vibes_state") || "";
-  s.onchange = ()=>{ localStorage.setItem("vibes_state", s.value); renderAds(); };
-}
-function fillStatesMulti(){
-  const m=$("#buyStatesSelect"); m.innerHTML="";
-  US_STATES.filter(Boolean).forEach(st=>{
-    const o=document.createElement("option"); o.value=st; o.textContent=st;
-    m.appendChild(o);
-  });
-}
-
-/* ====== PROFILES ====== */
-async function loadMyProfile(){
-  if(!ME) return null;
-  const { data } = await sb.from('profiles').select('*').eq('id', ME.id).maybeSingle();
-  return data||null;
-}
-async function saveMyProfileRow(row){
-  if(!ME) return alert("Sign in first.");
-  row.id = ME.id;
-  const { error } = await sb.from('profiles').upsert(row);
-  if(error) alert(error.message); else alert("Profile saved!");
-}
-async function uploadPhotoToBucket(file){
-  if(!ME) { alert("Sign in first."); return null; }
-  const safe = file.name.replace(/[^a-z0-9\.\-_]/gi,'_').toLowerCase();
-  const path = `${ME.id}/${Date.now()}_${safe}`;
-  const { error } = await sb.storage.from('photos').upload(path, file, { upsert:true });
-  if(error){ alert(error.message); return null; }
-  const { data } = sb.storage.from('photos').getPublicUrl(path);
-  return data.publicUrl;
-}
-function splitInterests(v){ return v.split(",").map(s=>s.trim()).filter(Boolean); }
-function renderMyPhotosLocal(urls){
-  const g=$("#mePhotoGrid"); g.innerHTML=""; (urls||[]).forEach(src=>{ const im=document.createElement("img"); im.src=src; im.className="rounded-xl border h-32 w-full object-cover"; g.appendChild(im); });
-}
-$("#mePhotos").addEventListener("change", async (e)=>{
-  if(!ME) { alert("Sign in first."); e.target.value=""; return; }
-  const files=[...e.target.files].slice(0,6);
-  const urls=[];
-  for(const f of files){ const u = await uploadPhotoToBucket(f); if(u) urls.push(u); }
-  const merged = Array.from(new Set([...(MY_PROFILE?.photos||[]), ...urls])).slice(0,6);
-  MY_PROFILE = { ...(MY_PROFILE||{}), photos: merged };
-  renderMyPhotosLocal(MY_PROFILE.photos);
-});
-$("#saveMe").onclick = async ()=>{
-  if(!ME) return alert("Sign in first.");
-  const row = {
-    display_name: $("#meName").value.trim(),
-    city: $("#meCity").value.trim(),
-    age: Number($("#meAge").value)||null,
-    pronouns: $("#mePronouns").value.trim(),
-    goals: $("#meGoals").value,
-    interests: splitInterests($("#meInterests").value),
-    bio: $("#meBio").value.trim(),
-    avatar_url: (MY_PROFILE?.avatar_url)||null,
-    photos: (MY_PROFILE?.photos && MY_PROFILE.photos.length? MY_PROFILE.photos : [avatarPNG($("#meName").value||"Me")])
+  // --- Templates by driver ---
+  // These templates are deliberately "function-based" so labels stay consistent.
+  const CONTROL = {
+    label: "CONTROL",
+    reason: "This tries to reduce ambiguity by setting terms, rules, or a decision path.",
+    openers: [
+      "Here’s how this works:",
+      "Let’s be clear:",
+      "Bottom line:",
+      "This is what’s going to happen:",
+      "We’re not doing that.",
+      "I need a decision.",
+      "We’ll do it this way.",
+      "The rule is simple:",
+      "I’ll handle it. Do this:",
+      "Stop. Listen:"
+    ],
+    verbs: ["decide", "confirm", "commit", "execute", "finalize", "align", "approve", "sign off", "lock in", "clarify"],
+    constraints: [
+      "by end of day", "right now", "before we continue", "in one sentence", "with no back-and-forth",
+      "without debating it", "with a clear yes or no", "without exceptions", "in writing", "today"
+    ],
+    questions: [
+      "Are you in or out?",
+      "What’s the decision?",
+      "What’s the plan?",
+      "Who owns this?",
+      "What’s your final answer?",
+      "What do you want, exactly?",
+      "What are we doing next?",
+      "Which option are you choosing?",
+      "What’s the deadline?",
+      "Do you agree with that?"
+    ],
+    closers: [
+      "Good. Let’s move.",
+      "We’re aligned then.",
+      "That’s settled.",
+      "Stick to the plan.",
+      "Don’t complicate it."
+    ],
+    contexts: [
+      "for this project", "for this relationship", "for the meeting", "for the contract", "for the plan",
+      "for the next step", "for our schedule", "for the team", "for today", "going forward"
+    ]
   };
-  await saveMyProfileRow(row);
-  MY_PROFILE = await loadMyProfile();
-  await reloadDeck();
-  fillProfileForm();
-};
-function fillProfileForm(){
-  $("#meName").value = MY_PROFILE?.display_name || "";
-  $("#meCity").value = MY_PROFILE?.city || "";
-  $("#meAge").value = MY_PROFILE?.age || "";
-  $("#mePronouns").value = MY_PROFILE?.pronouns || "";
-  $("#meGoals").value = MY_PROFILE?.goals || "";
-  $("#meInterests").value = (MY_PROFILE?.interests||[]).join(", ");
-  $("#meBio").value = MY_PROFILE?.bio || "";
-  renderMyPhotosLocal(MY_PROFILE?.photos||[]);
-}
 
-/* ====== ADS ====== */
-async function fetchApprovedAds(){
-  const { data } = await sb
-    .from('ads')
-    .select('id, title, link, image_url, states, is_free, priority, starts_at, ends_at, created_at')
-    .eq('status','approved')
-    .order('priority',{ascending:false})
-    .order('created_at',{ascending:false});
-  return data||[];
-}
-async function submitAd({title,link,image_url,states,is_free,payment_link,starts,ends}){
-  if(!ME) return alert("Sign in first.");
-  const { error } = await sb.from('ads').insert({
-    owner: ME.id,
-    title, link, image_url,
-    states: states,
-    is_free: !!is_free,
-    payment_link,
-    starts_at: starts||null,
-    ends_at: ends||null,
-    status: 'pending'
-  });
-  if(error) alert(error.message); else alert("Ad submitted! We'll review it soon.");
-}
-$("#buySubmit").onclick = async ()=>{
-  const title=$("#buyTitle").value.trim(), link=$("#buyLink").value.trim(), image=$("#buyImg").value.trim();
-  const states=[...$("#buyStatesSelect").selectedOptions].map(o=>o.value);
-  const pay=$("#buyPay").value.trim(); const starts=$("#buyStart").value||null; const ends=$("#buyEnd").value||null;
-  if(!title||!link||!image) return alert("Fill title, link, and image.");
-  await submitAd({title,link,image_url:image,states,is_free:false,payment_link:pay,starts,ends});
-};
-$("#buyMyFree").onclick = async ()=>{
-  const title=$("#buyTitle").value.trim(), link=$("#buyLink").value.trim(), image=$("#buyImg").value.trim();
-  const states=[...$("#buyStatesSelect").selectedOptions].map(o=>o.value);
-  const starts=$("#buyStart").value||null; const ends=$("#buyEnd").value||null;
-  if(!title||!link||!image) return alert("Fill title, link, and image.");
-  await submitAd({title,link,image_url:image,states,is_free:true, payment_link:null,starts,ends});
-};
-function renderAdsCard(ad){
-  return `<div class="card p-3 ad-card">
-    <a href="${ad.link}" target="_blank" rel="noopener">
-      <img src="${ad.image_url}" class="w-full rounded-xl border" alt="${escapeHTML(ad.title)}"/>
-      <div class="mt-2 font-bold text-xl">${escapeHTML(ad.title)}</div>
-      <div class="small text-slate-600">${ad.is_free ? "House Ad" : "Sponsored"}</div>
-    </a>
-  </div>`;
-}
-async function renderAds(){
-  const grid=$("#adsGrid"); grid.innerHTML="";
-  const all=await fetchApprovedAds();
-  const st = $("#statePick").value || "";
-  const now = Date.now();
-  const filtered = all.filter(a=>{
-    const inDate = (!a.starts_at || new Date(a.starts_at).getTime() <= now) &&
-                   (!a.ends_at || new Date(a.ends_at).getTime() >= now);
-    const inState = !st || !a.states || a.states.length===0 || a.states.includes(st);
-    return inDate && inState;
-  });
-  if(!filtered.length){
-    grid.innerHTML = `<div class="small">No sponsored ads for your state yet. Check back soon!</div>`;
-    return;
+  const APPROVAL = {
+    label: "APPROVAL",
+    reason: "This tries to reduce social risk by seeking reassurance, agreement, or acceptance.",
+    openers: [
+      "I might be overthinking, but…",
+      "Does this make sense?",
+      "I hope this doesn’t sound weird, but…",
+      "I’m not trying to be difficult…",
+      "Maybe I’m wrong…",
+      "I don’t know if you’ll agree, but…",
+      "I just want to make sure we’re okay…",
+      "I’m sorry if this is a lot…",
+      "Tell me if I’m off here…",
+      "I really value your opinion…"
+    ],
+    feelings: ["anxious", "unsure", "embarrassed", "nervous", "confused", "stressed", "worried", "sensitive", "insecure", "overwhelmed"],
+    questions: [
+      "Do you think I did the right thing?",
+      "Are you upset with me?",
+      "Is that okay with you?",
+      "Do you still feel good about us?",
+      "What do you think of me?",
+      "Did I mess that up?",
+      "Can you tell me I’m not crazy?",
+      "Are we on the same page?",
+      "Do you understand what I mean?",
+      "Am I being too much?"
+    ],
+    hedges: ["kind of", "maybe", "I guess", "a little", "sort of", "I think", "probably", "honestly", "to be fair", "like"],
+    closers: [
+      "I just don’t want you to think badly of me.",
+      "I want you to be happy with me.",
+      "I want to do this right.",
+      "I don’t want to disappoint you.",
+      "I’m trying my best here."
+    ],
+    contexts: [
+      "when you said that", "about what happened", "about earlier", "about tomorrow", "about the way I came across",
+      "about that message", "about our conversation", "about your reaction", "about your tone", "about how you feel"
+    ]
+  };
+
+  const PROTECTION = {
+    label: "PROTECTION",
+    reason: "This tries to avoid harm/loss by scanning risks, slowing commitments, or creating escape routes.",
+    openers: [
+      "Before we do anything…",
+      "I need to think this through.",
+      "What’s the catch?",
+      "I’m not comfortable yet.",
+      "Let’s slow down.",
+      "I want to be careful.",
+      "I’ve been burned before.",
+      "I’m just trying to protect myself.",
+      "I don’t want to rush into this.",
+      "I need more information first."
+    ],
+    riskQs: [
+      "What happens if it goes wrong?",
+      "What are the risks?",
+      "What’s the worst-case scenario?",
+      "What if this doesn’t work?",
+      "What’s the exit plan?",
+      "What’s the downside for me?",
+      "What guarantees do I have?",
+      "How do I know this is real?",
+      "Who else has tried this?",
+      "Can we do a small test first?"
+    ],
+    boundaries: [
+      "I’m not committing yet.",
+      "I’m keeping my options open.",
+      "I need time.",
+      "I want a trial period.",
+      "I’m not sharing that information yet.",
+      "Let’s keep it simple for now.",
+      "I want this in writing.",
+      "I need clarity before I proceed.",
+      "I’m not agreeing to that.",
+      "I want to see proof first."
+    ],
+    closers: [
+      "Let me sleep on it.",
+      "I’ll get back to you.",
+      "I’m not ready to decide.",
+      "I need to feel safe with this.",
+      "I don’t want to regret it."
+    ],
+    contexts: [
+      "given what happened last time", "because I’ve seen scams", "because I don’t trust easily", "because there’s a lot at stake",
+      "because I can’t afford a mistake", "because this is serious", "because people switch up", "because I need to be sure",
+      "because I don’t want surprises", "because I value stability"
+    ]
+  };
+
+  const ALL = { control: CONTROL, approval: APPROVAL, protection: PROTECTION };
+
+  // --- Statement generator (combinatorial => 10,000+ unique) ---
+  function genControl() {
+    const a = pick(CONTROL.openers);
+    const q = pick(CONTROL.questions);
+    const v = pick(CONTROL.verbs);
+    const c = pick(CONTROL.contexts);
+    const t = pick(CONTROL.constraints);
+    const end = pick(CONTROL.closers);
+    const patterns = [
+      `${a} ${q}`,
+      `${a} I need you to ${v} ${c} ${t}.`,
+      `${a} Pick one option and ${v} ${t}.`,
+      `${a} We will ${v} ${c} ${t}. ${end}`,
+      `${a} Answer this ${t}: ${q}`,
+      `${a} I’m not debating it. ${q}`,
+      `${a} State your position ${t}.`,
+      `${a} We’re losing time. ${q}`
+    ];
+    return pick(patterns);
   }
-  filtered.forEach(ad=>{ const d=document.createElement("div"); d.innerHTML=renderAdsCard(ad); grid.appendChild(d); });
-}
 
-/* ====== ADMIN ====== */
-async function adminList(status){
-  const { data } = await sb.from('ads').select('*').eq('status',status).order('created_at',{ascending:false});
-  return data||[];
-}
-async function adminApprove(id, paid){
-  if(!IS_ADMIN) return alert("Admins only.");
-  const { error } = await sb.from('ads').update({ status:'approved', paid: !!paid }).eq('id', id);
-  if(error) alert(error.message); else { alert("Approved."); loadAdmin(); renderAds(); }
-}
-async function adminReject(id){
-  if(!IS_ADMIN) return alert("Admins only.");
-  const { error } = await sb.from('ads').update({ status:'rejected' }).eq('id', id);
-  if(error) alert(error.message); else { alert("Rejected."); loadAdmin(); }
-}
-async function loadAdmin(){
-  if(!IS_ADMIN){ $("#adminPending").innerHTML=""; $("#adminApproved").innerHTML=""; return; }
-  const p=await adminList('pending'); const a=await adminList('approved');
-  const P=$("#adminPending"), A=$("#adminApproved"); P.innerHTML=""; A.innerHTML="";
-  p.forEach(x=>{
-    const d=document.createElement("div"); d.className="p-2 border-b border-slate-200";
-    d.innerHTML = `<div class="font-semibold">${escapeHTML(x.title)}</div>
-      <div class="small">${(x.states||[]).join(", ")||"All states"} • ${x.payment_link?"Has payment link":"No payment link"} • ${x.is_free?"House ad":"Sponsored"}</div>
-      <div class="mt-2 flex gap-2">
-        <button class="btn btn-primary" data-approve="${x.id}">Approve</button>
-        <button class="btn btn-ghost" data-approve-paid="${x.id}">Approve+Paid</button>
-        <button class="btn btn-ghost" data-reject="${x.id}">Reject</button>
-      </div>`;
-    P.appendChild(d);
-  });
-  a.forEach(x=>{
-    const d=document.createElement("div"); d.className="p-2 border-b border-slate-200";
-    d.innerHTML = `<div class="font-semibold">${escapeHTML(x.title)}</div>
-      <div class="small">${(x.states||[]).join(", ")||"All states"} • ${x.is_free?"House ad":"Sponsored"} • Paid: ${x.paid?"Yes":"No"}</div>`;
-    A.appendChild(d);
-  });
-  P.querySelectorAll("[data-approve]").forEach(b=>b.onclick=()=>adminApprove(Number(b.dataset.approve), false));
-  P.querySelectorAll("[data-approve-paid]").forEach(b=>b.onclick=()=>adminApprove(Number(b.dataset.approvePaid || b.getAttribute("data-approve-paid")), true));
-  P.querySelectorAll("[data-reject]").forEach(b=>b.onclick=()=>adminReject(Number(b.dataset.reject)));
-}
+  function genApproval() {
+    const o = pick(APPROVAL.openers);
+    const q = pick(APPROVAL.questions);
+    const h = pick(APPROVAL.hedges);
+    const f = pick(APPROVAL.feelings);
+    const c = pick(APPROVAL.contexts);
+    const end = pick(APPROVAL.closers);
+    const patterns = [
+      `${o} ${q}`,
+      `${o} I’ve been feeling ${f} ${c}. ${q}`,
+      `${o} I ${h} worry I came off wrong ${c}. ${q}`,
+      `${o} Can you reassure me ${c}? ${q}`,
+      `${o} I’m trying to be honest. ${q} ${end}`,
+      `${o} I just want to make sure you’re okay. ${q}`,
+      `${o} If I did something wrong, I want to fix it. ${q}`
+    ];
+    return pick(patterns);
+  }
 
-/* ====== DISCOVER / SWIPE / CHAT ====== */
-async function fetchProfiles(limit=120){
-  const { data } = await sb.from('profiles')
-    .select('id, display_name, city, age, pronouns, goals, interests, bio, avatar_url, photos, created_at')
-    .order('created_at', { ascending:false })
-    .limit(limit);
-  return data||[];
-}
-function mapProfileRow(p){
-  return {
-    id: p.id, name: p.display_name || "Someone",
-    age: p.age||"", city: p.city||"", goals: p.goals||"", pronouns: p.pronouns||"",
-    interests: p.interests||[], bio: p.bio||"",
-    photos: (p.photos && p.photos.length ? p.photos : [p.avatar_url || avatarPNG(p.display_name||"User")]),
-    distance: 1 + Math.floor(Math.random()*50)
-  };
-}
-function getP(id){ return DECK.find(x=>x.id===id); }
-async function reloadDeck(){
-  const rows = await fetchProfiles();
-  DECK = rows.filter(r => !ME || r.id !== ME.id).map(mapProfileRow);
-  currentCardIds = filterDeck();
-  renderGrid(); renderStack(); renderMatches();
-}
-function roomsLabel(r){ const el = $(`#roomsBar .room[data-room="${r}"]`); return el ? el.textContent.trim() : r; }
-let activeRoom="all";
-const ROOM_MAP = {
-  all: { interests: [], goal: "" },
-  coffee: { interests: ["coffee"], goal: "Friendship first" },
-  live: { interests: ["live music"], goal: "" },
-  hike: { interests: ["hiking"], goal: "" },
-  books: { interests: ["books"], goal: "Long-term relationship" },
-  film: { interests: ["film"], goal: "" },
-  art: { interests: ["art","museums"], goal: "" },
-  yoga: { interests: ["yoga"], goal: "" },
-  run: { interests: ["running"], goal: "" },
-  food: { interests: ["cooking","food"], goal: "" },
-  game: { interests: ["gaming"], goal: "" },
-  nsa: { interests: [], goal: "Open to exploring" }
-};
-$$("#roomsBar .room").forEach(btn=>btn.addEventListener("click", ()=> setRoom(btn.dataset.room)));
-function setRoom(r){
-  activeRoom = r;
-  $$("#roomsBar .room").forEach(b=>b.classList.toggle("active", b.dataset.room===r));
-  $("#roomHint").textContent = r==="all" ? "Showing everyone." : `Showing people for “${roomsLabel(r)}”.`;
-  currentCardIds = filterDeck(); renderStack(); renderGrid();
-}
-function filterDeck(){
-  const min=Number($("#ageMin").value)||18, max=Number($("#ageMax").value)||100, dist=Number($("#distance").value)||50, gSel=$("#goalsFilter").value;
-  const room = ROOM_MAP[activeRoom] || ROOM_MAP.all;
-  const wanted=(room.interests||[]).map(s=>s.toLowerCase());
-  return DECK.filter(p=>{
-    if(p.age<min||p.age>max) return false;
-    if(p.distance>dist) return false;
-    if(gSel && p.goals!==gSel) return false;
-    if(wanted.length){
-      const pInts=(p.interests||[]).map(s=>String(s).toLowerCase());
-      const hit=wanted.some(w=>pInts.some(pi=>pi.includes(w)));
-      if(!hit) return false;
+  function genProtection() {
+    const o = pick(PROTECTION.openers);
+    const q = pick(PROTECTION.riskQs);
+    const b = pick(PROTECTION.boundaries);
+    const c = pick(PROTECTION.contexts);
+    const end = pick(PROTECTION.closers);
+    const patterns = [
+      `${o} ${q}`,
+      `${o} ${b}`,
+      `${o} ${q} ${c}.`,
+      `${o} Can we do a small test first? ${q}`,
+      `${o} I need clarity: ${q}`,
+      `${o} I’m not trying to be difficult—${b}`,
+      `${o} ${end} ${q}`
+    ];
+    return pick(patterns);
+  }
+
+  function makeItem(mode) {
+    let driver = mode;
+    if (mode === "mixed") driver = pick(["control","approval","protection"]);
+
+    let text = "";
+    if (driver === "control") text = genControl();
+    if (driver === "approval") text = genApproval();
+    if (driver === "protection") text = genProtection();
+
+    return { text, driver, label: ALL[driver].label, reason: ALL[driver].reason };
+  }
+
+  // --- App state ---
+  let mode = "mixed";
+  let sessionN = 10000;
+  let pool = [];
+  let idx = 0;
+
+  let total = 0, correct = 0, streak = 0;
+  const last50 = [];
+
+  // --- Elements ---
+  const stmtEl = document.getElementById("stmt");
+  const fbEl = document.getElementById("feedback");
+  const fbLineEl = document.getElementById("fbLine");
+  const fbReasonEl = document.getElementById("fbReason");
+
+  const modeSel = document.getElementById("mode");
+  const sessionNEl = document.getElementById("sessionN");
+
+  const modePill = document.getElementById("modePill");
+  const countPill = document.getElementById("countPill");
+  const streakPill = document.getElementById("streakPill");
+
+  const scoreLine = document.getElementById("scoreLine");
+  const accLine = document.getElementById("accLine");
+  const last50Line = document.getElementById("last50Line");
+
+  const btnC = document.getElementById("btnC");
+  const btnA = document.getElementById("btnA");
+  const btnP = document.getElementById("btnP");
+  const btnReveal = document.getElementById("btnReveal");
+  const btnNext = document.getElementById("btnNext");
+  const btnReset = document.getElementById("btnReset");
+
+  function updateKPIs() {
+    scoreLine.textContent = `${correct} correct / ${total} total`;
+    const acc = total ? Math.round((correct/total)*100) : 0;
+    accLine.textContent = `${acc}%`;
+    const lastAcc = last50.length ? Math.round((last50.filter(x=>x).length/last50.length)*100) : 0;
+    last50Line.textContent = last50.length ? `${lastAcc}%` : "—";
+    streakPill.textContent = `Streak: ${streak}`;
+  }
+
+  function setModeUI() {
+    const m = mode === "mixed" ? "Mixed" : ALL[mode].label;
+    modePill.textContent = `Mode: ${m}`;
+  }
+
+  function generatePool() {
+    pool = [];
+    for (let i=0; i<sessionN; i++) pool.push(makeItem(mode));
+    // optional shuffle for variety
+    pool = shuffle(pool);
+    idx = 0;
+    countPill.textContent = `Generated: ${pool.length}`;
+  }
+
+  function showItem() {
+    if (idx >= pool.length) {
+      stmtEl.textContent = `Session complete: ${pool.length} statements. Click "Reset Session" to generate more.`;
+      btnC.disabled = btnA.disabled = btnP.disabled = btnReveal.disabled = true;
+      btnNext.disabled = true;
+      fbEl.style.display = "none";
+      return;
     }
-    if(activeRoom==="nsa" && !/open to exploring|casual/i.test(p.goals||"")) return false;
-    return true;
-  }).map(p=>p.id);
-}
-function renderGrid(){
-  const g=$("#grid"); g.innerHTML="";
-  const ids = filterDeck();
-  ids.map(getP).filter(Boolean).slice(0,30).forEach(p=>{
-    const d=document.createElement("div"); d.className="card p-3";
-    d.innerHTML=`<img src="${p.photos[0]}" class="avatar" alt="${p.name}"/><div class="mt-2 font-semibold text-xl">${p.name}, ${p.age}</div><div class="small">${p.city} · ${p.goals}</div><div class="mt-2">${(p.interests||[]).slice(0,3).map(i=>`<span class="chip">${i}</span>`).join("")}</div><div class="mt-3 flex gap-2"><button class="btn btn-ghost" data-view="${p.id}">👁 View</button><button class="btn btn-primary" data-like="${p.id}">👍 Like</button></div>`;
-    g.appendChild(d);
-  });
-  g.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>openProfile(b.getAttribute("data-view")));
-  g.querySelectorAll("[data-like]").forEach(b=>b.onclick=()=>likeFlow(b.getAttribute("data-like")));
-}
-
-/* Swipe */
-function renderStack(){
-  const s=$("#stack"); s.innerHTML="";
-  if(!currentCardIds.length) currentCardIds=filterDeck();
-  currentCardIds.slice(0,4).forEach((id,idx)=>{
-    const p=getP(id);
-    const card=document.createElement("div"); card.className="swipe-card card"; card.dataset.id=id;
-    card.style.zIndex=String(100-idx); card.style.top=(10+idx*8)+"px";
-    card.innerHTML=`<img class="swipe-photo" src="${p.photos[0]}" alt="${p.name}"/><div class="swipe-info"><div class="flex items-center justify-between"><div class="text-2xl font-bold">${p.name}, ${p.age}</div><div class="small">${p.city} · ${p.distance} mi</div></div><div class="small">${p.pronouns||""} · ${p.goals}</div><div class="mt-2">${(p.interests||[]).map(i=>`<span class="chip">${i}</span>`).join("")}</div><p class="small mt-2">${p.bio||""}</p></div>`;
-    s.appendChild(card); enableDrag(card);
-  });
-}
-function topId(){ return currentCardIds[0]; }
-function removeTop(){ currentCardIds.shift(); renderStack(); }
-function enableDrag(card){
-  let sx=0,sy=0,x=0,y=0,drag=false;
-  const down=e=>{drag=true; sx=(e.touches?e.touches[0].clientX:e.clientX); sy=(e.touches?e.touches[0].clientY:e.clientY); card.style.transition="none";};
-  const move=e=>{ if(!drag)return; x=(e.touches?e.touches[0].clientX:e.clientX)-sx; y=(e.touches?e.touches[0].clientY:e.clientY)-sy; const rot=clamp(x/12,-20,20); card.style.transform=`translateX(calc(-50% + ${x}px)) translateY(${y}px) rotate(${rot}deg)`; };
-  const up=()=>{ if(!drag)return; drag=false; const th=120; if(x>th){ likeFlow(topId()); fly(card,1); } else if(x<-th){ passFlow(topId()); fly(card,-1); } else if(y<-th){ superFlow(topId()); fly(card,0); } else { card.style.transition="all .2s"; card.style.transform="translateX(-50%) rotate(0deg)"; } };
-  card.addEventListener("mousedown",down); card.addEventListener("mousemove",move); document.addEventListener("mouseup",up);
-  card.addEventListener("touchstart",down,{passive:true}); card.addEventListener("touchmove",move,{passive:true}); card.addEventListener("touchend",up);
-}
-function fly(card,dir){ card.style.transition="all .25s ease-out"; const x=dir===1?500:dir===-1?-500:0, y=dir===0?-500:50; card.style.transform=`translateX(${x}px) translateY(${y}px) rotate(${dir*25}deg)`; setTimeout(removeTop,220); }
-document.addEventListener("keydown",(e)=>{ if(e.key==="ArrowLeft") passFlow(topId()); if(e.key==="ArrowRight") likeFlow(topId()); if(e.key==="ArrowUp") superFlow(topId()); });
-$("#btnPass").onclick=()=>passFlow(topId());
-$("#btnLike").onclick=()=>likeFlow(topId());
-$("#btnSuper").onclick=()=>superFlow(topId());
-$("#btnOpen").onclick=()=>openProfile(topId());
-
-async function swipeLike(targetId){
-  await sb.from('swipes').insert({ swiper: ME.id, swiped: targetId, action:'like' });
-  const { data: m } = await sb
-    .from('matches')
-    .select('id')
-    .or(`and(user_a.eq.${ME.id},user_b.eq.${targetId}),and(user_a.eq.${targetId},user_b.eq.${ME.id})`)
-    .limit(1).maybeSingle();
-  if(m){ alert("🎉 It's a match! Open Messages."); await renderMatches(); }
-}
-async function swipePass(targetId){
-  await sb.from('swipes').insert({ swiper: ME.id, swiped: targetId, action:'pass' });
-}
-async function likeFlow(id){ if(!ME) return alert("Sign in first."); if(!id) return; await swipeLike(id); removeTop(); }
-async function passFlow(id){ if(!ME) return; if(!id) return; await swipePass(id); removeTop(); }
-async function superFlow(id){ if(!ME) return alert("Sign in first."); if(!id) return; await swipeLike(id); alert("⭐ Superlike sent!"); removeTop(); }
-
-/* View profile modal */
-function openProfile(id){
-  if(!id) return; const p=getP(id); if(!p) return;
-  $("#pmName").textContent=`${p.name}, ${p.age}`;
-  $("#pmMeta").textContent=`${p.city} • ${p.pronouns||""} • ${p.goals} • ${p.distance} mi`;
-  $("#pmInterests").innerHTML=(p.interests||[]).map(i=>`<span class="chip">${i}</span>`).join("");
-  $("#pmBio").textContent=p.bio||"";
-  const gal=$("#pmGallery"); gal.innerHTML="";
-  (p.photos&&p.photos.length?p.photos:[avatarPNG(p.name)]).forEach(src=>{ const img=document.createElement("img"); img.src=src; img.className="rounded-xl border"; img.alt=p.name; gal.appendChild(img); });
-  $("#pmLike").onclick=()=>{ likeFlow(p.id); closeModal(); };
-  $("#pmSuper").onclick=()=>{ superFlow(p.id); closeModal(); };
-  $("#pmMsg").onclick=()=>{ alert("Message after matching. Like each other to open chat."); closeModal(); };
-  $("#pmReport").onclick=()=>{ alert("Reported. (Admin review)"); closeModal(); };
-  $("#pmBlock").onclick=()=>{ DECK=DECK.filter(x=>x.id!==p.id); renderGrid(); renderStack(); closeModal(); };
-  $("#profileModal").classList.remove("hide");
-}
-function closeModal(){ $("#profileModal").classList.add("hide"); }
-$("#pmClose").onclick=closeModal;
-
-/* Matches & chat */
-async function myMatches(){
-  const { data } = await sb
-    .from('matches')
-    .select('id, user_a, user_b, created_at')
-    .or(`user_a.eq.${ME.id},user_b.eq.${ME.id}`)
-    .order('created_at',{ascending:false});
-  return data || [];
-}
-async function renderMatches(){
-  if(!ME){ $("#matchList").innerHTML="Sign in to see matches."; return; }
-  const box=$("#matchList"); box.innerHTML="";
-  const list = await myMatches();
-  if(!list.length){ box.innerHTML=`<div class="small">No matches yet. Like people to match.</div>`; return; }
-  for(const m of list){
-    const otherId = (m.user_a===ME.id)? m.user_b : m.user_a;
-    const { data: p } = await sb.from('profiles').select('id, display_name, city, photos').eq('id', otherId).maybeSingle();
-    const name = p?.display_name || "Someone";
-    const city = p?.city || "";
-    const photo = (p?.photos && p.photos[0]) || avatarPNG(name);
-    const row=document.createElement("div"); row.className="flex items-center gap-3 p-2 border-b border-slate-200";
-    row.innerHTML=`<img src="${photo}" class="w-14 h-14 rounded-full object-cover border" alt="${name}"/><div class="flex-1"><div class="font-semibold text-lg">${name}</div><div class="small">${city}</div></div><button class="btn btn-ghost" data-chat="${m.id}">Open chat</button>`;
-    box.appendChild(row);
+    const item = pool[idx];
+    stmtEl.textContent = item.text;
+    fbEl.style.display = "none";
+    btnC.disabled = btnA.disabled = btnP.disabled = false;
+    btnReveal.disabled = false;
+    btnNext.disabled = false;
   }
-  box.querySelectorAll("[data-chat]").forEach(b=>b.onclick=()=>openChat(b.getAttribute("data-chat")));
-}
-async function loadMessages(matchId){
-  const { data } = await sb.from('messages').select('id, sender, text, created_at').eq('match_id', matchId).order('created_at',{ascending:true});
-  return data||[];
-}
-async function openChatRealtime(matchId, onNew){
-  if(MSG_SUB){ await sb.removeChannel(MSG_SUB); MSG_SUB=null; }
-  MSG_SUB = sb.channel(`messages:${matchId}`)
-    .on('postgres_changes',{ event:'INSERT', schema:'public', table:'messages', filter:`match_id=eq.${matchId}` }, (payload)=> onNew(payload.new))
-    .subscribe();
-}
-async function openChat(matchId){
-  activeChatId = Number(matchId);
-  const { data: m } = await sb.from('matches').select('id, user_a, user_b').eq('id', activeChatId).single();
-  const otherId = (m.user_a===ME.id)? m.user_b : m.user_a;
-  const { data: p } = await sb.from('profiles').select('display_name').eq('id', otherId).maybeSingle();
-  $("#chatHeader").textContent = `Chatting with ${p?.display_name || "Someone"}`;
-  const msgs = await loadMessages(activeChatId);
-  const box=$("#chatBox"); box.innerHTML="";
-  msgs.forEach(renderMsg);
-  box.scrollTop = box.scrollHeight;
-  await openChatRealtime(activeChatId, (msg)=>{ renderMsg(msg); box.scrollTop=box.scrollHeight; });
-}
-function renderMsg(msg){
-  const box=$("#chatBox");
-  const mine = (msg.sender===ME?.id);
-  const d=document.createElement("div");
-  d.className=`mb-2 flex ${mine?'justify-end':''}`;
-  d.innerHTML=`<div class="max-w-[70%] ${mine?'bg-purple-600 text-white':'bg-slate-100'} px-3 py-2 rounded-xl">${escapeHTML(msg.text)}</div>`;
-  box.appendChild(d);
-}
-$("#sendMsg").onclick = async ()=>{
-  if(!activeChatId) return alert("Open a chat first.");
-  if(!ME) return alert("Sign in first.");
-  const t=$("#chatInput").value.trim(); if(!t) return;
-  $("#chatInput").value="";
-  await sb.from('messages').insert({ match_id: activeChatId, sender: ME.id, text: t });
-};
 
-/* ====== Landing Quick Form wiring ====== */
-function clampNum(v,min,max){ const n=Number(v)||min; return Math.min(max, Math.max(min, n)); }
-$("#viewSingles").onclick = ()=>{
-  // Apply age
-  const amin=clampNum($("#ageMinLanding").value,18,100);
-  const amax=clampNum($("#ageMaxLanding").value,amin,100);
-  $("#ageMin").value=amin;
-  $("#ageMax").value=amax;
-  // Distance heuristic: if ZIP entered, assume 25 miles; else 50
-  const hasZip = ($("#zip").value||"").trim().length>=3;
-  $("#distance").value = hasZip? 25 : 50;
-  // Jump to Discover & render
-  currentCardIds = filterDeck();
-  renderStack(); renderGrid();
-  location.hash = "#trending";
-};
+  function reveal(correctLabel) {
+    const item = pool[idx];
+    fbEl.style.display = "block";
+    fbEl.className = "feedback";
+    fbLineEl.textContent = `Correct: ${item.label}` + (correctLabel ? ` | You chose: ${correctLabel}` : "");
+    fbReasonEl.textContent = `Why: ${item.reason}`;
+  }
 
-/* ====== Footer scripting ====== */
-document.querySelector('#yr').textContent = new Date().getFullYear();
-const openModal = id => document.getElementById(id).style.display='flex';
-const closeModal = id => document.getElementById(id).style.display='none';
-document.getElementById('openTerms').onclick = ()=>openModal('termsModal');
-document.getElementById('openPrivacy').onclick = ()=>openModal('privacyModal');
-document.getElementById('openSafety').onclick = ()=>openModal('safetyModal');
-document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click', ()=>closeModal(b.getAttribute('data-close'))));
-document.querySelectorAll('.modal-scrim').forEach(s=>s.addEventListener('click', (e)=>{ if(e.target===s) s.style.display='none'; }));
+  function answer(choice) {
+    const item = pool[idx];
+    const choiceLabel = ALL[choice].label;
 
-/* ====== Bootstrap ====== */
-async function bootstrap(){
-  fillStatePicker();
-  fillStatesMulti();
-  await refreshAuthUI();
-  if(ME){ MY_PROFILE = await loadMyProfile(); fillProfileForm(); }
-  await reloadDeck();
-  await renderAds();
-  await loadAdmin();
-}
-bootstrap();
+    total++;
+    const isCorrect = (choice === item.driver);
+    if (isCorrect) { correct++; streak++; }
+    else { streak = 0; }
+
+    last50.push(isCorrect);
+    if (last50.length > 50) last50.shift();
+
+    updateKPIs();
+
+    fbEl.style.display = "block";
+    fbEl.className = "feedback " + (isCorrect ? "good" : "bad");
+    fbLineEl.textContent = (isCorrect ? "✅ Correct." : "❌ Not quite.") + ` Correct: ${item.label} | You chose: ${choiceLabel}`;
+    fbReasonEl.textContent = `Why: ${item.reason}`;
+
+    // lock buttons until next
+    btnC.disabled = btnA.disabled = btnP.disabled = true;
+    btnReveal.disabled = true;
+  }
+
+  // --- Events ---
+  btnC.addEventListener("click", () => answer("control"));
+  btnA.addEventListener("click", () => answer("approval"));
+  btnP.addEventListener("click", () => answer("protection"));
+
+  btnReveal.addEventListener("click", () => {
+    reveal(null);
+    btnReveal.disabled = true;
+  });
+
+  btnNext.addEventListener("click", () => {
+    idx++;
+    showItem();
+  });
+
+  btnReset.addEventListener("click", () => {
+    mode = modeSel.value;
+    sessionN = parseInt(sessionNEl.value || "10000", 10);
+    if (!Number.isFinite(sessionN) || sessionN < 10) sessionN = 10000;
+    setModeUI();
+    generatePool();
+    btnC.disabled = btnA.disabled = btnP.disabled = false;
+    btnReveal.disabled = false;
+    btnNext.disabled = false;
+    showItem();
+  });
+
+  modeSel.addEventListener("change", () => {
+    // Update label pill immediately
+    mode = modeSel.value;
+    setModeUI();
+  });
+
+  // Init
+  setModeUI();
+  generatePool();
+  updateKPIs();
+  showItem();
+})();
 </script>
 </body>
 </html>
-
-
