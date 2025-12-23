@@ -1,470 +1,562 @@
+```html
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Women → Man Driver Trainer (NYC) — Control / Approval / Protection</title>
+  <title>Women→Man Driver Trainer (Hard) — Control / Approval / Protection</title>
   <style>
     :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; }
-    body { margin: 0; background: #0b0d10; color: #e9eef7; }
-    .wrap { max-width: 1040px; margin: 0 auto; padding: 18px; }
-    .card { background: #121722; border: 1px solid #23304a; border-radius: 14px; padding: 16px; box-shadow: 0 8px 26px rgba(0,0,0,.35); }
-    h1 { font-size: 16px; margin: 0 0 10px; font-weight: 850; letter-spacing:.2px; }
-    .statement { font-size: 22px; line-height: 1.35; padding: 14px; background: #0f1420; border: 1px solid #22314d; border-radius: 12px; }
-    .row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; align-items:center; }
+    body { margin:0; background:#0b0d10; color:#e9eef7; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 18px; }
+    .card { background:#121722; border:1px solid #23304a; border-radius:14px; padding:16px; box-shadow:0 8px 26px rgba(0,0,0,.35); }
+    h1 { font-size:16px; margin:0 0 10px; font-weight:900; letter-spacing:.2px; }
+    .statement { font-size: 22px; line-height:1.35; padding:14px; background:#0f1420; border:1px solid #22314d; border-radius:12px; }
+    .row { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; align-items:center; }
     button {
-      appearance: none; border: 1px solid #2a3a5d; background: #111a2c; color: #e9eef7;
-      padding: 10px 12px; border-radius: 10px; cursor: pointer; font-weight: 820;
+      appearance:none; border:1px solid #2a3a5d; background:#111a2c; color:#e9eef7;
+      padding:10px 12px; border-radius:10px; cursor:pointer; font-weight:900;
     }
-    button:hover { background: #14203a; }
-    button:disabled { opacity: .55; cursor: not-allowed; }
-    .pill { display: inline-block; padding: 6px 10px; border-radius: 999px; border: 1px solid #2a3a5d; background: #0f1420; font-size: 12px; }
-    .meta { display:flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; opacity:.96; }
-    .feedback { margin-top: 12px; padding: 12px; border-radius: 12px; border: 1px solid #2a3a5d; background: #0f1420; }
-    .good { border-color: #2e6d3d; background: #0f1b13; }
-    .bad  { border-color: #7a2f2f; background: #1b0f10; }
-    .reason { margin-top: 8px; opacity: .96; line-height:1.35; }
-    .grid { display:grid; grid-template-columns: 1.05fr .95fr; gap: 12px; margin-top: 12px; }
-    @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
-    input[type="number"], input[type="checkbox"] { accent-color: #7aa6ff; }
-    input[type="number"] { width: 140px; padding: 8px; border-radius: 10px; border: 1px solid #2a3a5d; background:#0f1420; color:#e9eef7; }
-    select { padding: 8px; border-radius: 10px; border: 1px solid #2a3a5d; background:#0f1420; color:#e9eef7; }
-    .small { font-size: 12px; opacity: .9; line-height: 1.45; }
-    .kpi { display:flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
-    .kpi .box { flex: 1; min-width: 210px; padding: 10px; border-radius: 12px; border: 1px solid #2a3a5d; background:#0f1420; }
-    .box b { font-size: 13px; }
-    .box div { font-size: 12px; opacity:.92; margin-top: 3px; line-height:1.35; }
-    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono"; font-size: 12px; opacity: .92; }
-    .timerbar { height: 10px; border-radius: 999px; overflow:hidden; border:1px solid #2a3a5d; background:#0f1420; }
+    button:hover { background:#14203a; }
+    button:disabled { opacity:.55; cursor:not-allowed; }
+    .pill { display:inline-block; padding:6px 10px; border-radius:999px; border:1px solid #2a3a5d; background:#0f1420; font-size:12px; }
+    .meta { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; opacity:.97; }
+    .feedback { margin-top:12px; padding:12px; border-radius:12px; border:1px solid #2a3a5d; background:#0f1420; }
+    .good { border-color:#2e6d3d; background:#0f1b13; }
+    .bad { border-color:#7a2f2f; background:#1b0f10; }
+    .reason { margin-top:8px; opacity:.96; line-height:1.35; }
+    .grid { display:grid; grid-template-columns: 1.05fr .95fr; gap:12px; margin-top:12px; }
+    @media (max-width: 900px){ .grid{ grid-template-columns:1fr; } }
+    .small { font-size:12px; opacity:.92; line-height:1.45; }
+    input[type="number"] { width: 130px; padding:8px; border-radius:10px; border:1px solid #2a3a5d; background:#0f1420; color:#e9eef7; }
+    select { padding:8px; border-radius:10px; border:1px solid #2a3a5d; background:#0f1420; color:#e9eef7; }
+    input[type="checkbox"] { accent-color:#7aa6ff; transform: scale(1.08); }
+    .kpi { display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+    .kpi .box { flex:1; min-width: 220px; padding:10px; border-radius:12px; border:1px solid #2a3a5d; background:#0f1420; }
+    .box b { font-size:13px; }
+    .box div { font-size:12px; opacity:.92; margin-top:3px; line-height:1.35; }
+    .timerbar { height:10px; border-radius:999px; overflow:hidden; border:1px solid #2a3a5d; background:#0f1420; }
     .timerfill { height:100%; width:0%; background:#7aa6ff; transition: width 50ms linear; }
-    .hint { margin-top: 8px; font-size: 12px; opacity:.9; }
     .respbox { margin-top:10px; padding:10px; border-radius:12px; border:1px solid #2a3a5d; background:#0f1420; }
     .respbox b { display:block; margin-bottom:6px; }
     .hotkeys { margin-top:10px; padding:10px; border-radius:12px; border:1px dashed #2a3a5d; background:#0f1420; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono"; font-size:12px; opacity:.92; }
+    .tag { display:inline-block; margin-top:8px; padding:6px 10px; border-radius:999px; border:1px solid #2a3a5d; background:#0f1420; font-size:12px; }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
-      <h1>Women → Man Driver Trainer (NYC) — Spot the Driver in 2 Seconds: Control / Approval / Protection</h1>
+<div class="wrap">
+  <div class="card">
+    <h1>Women → Man Driver Trainer (Hard) — classify fast: CONTROL / APPROVAL / PROTECTION</h1>
 
-      <div class="statement" id="stmt">Loading…</div>
+    <div class="statement" id="stmt">Loading…</div>
+    <div class="tag" id="hintTag">Hint: drivers can hide. listen for the *function* of the sentence.</div>
 
-      <div class="row">
-        <button id="btnC" title="Hotkey: 1">CONTROL (1)</button>
-        <button id="btnA" title="Hotkey: 2">APPROVAL (2)</button>
-        <button id="btnP" title="Hotkey: 3">PROTECTION (3)</button>
-        <button id="btnReveal" title="Hotkey: R">Reveal (R)</button>
-        <button id="btnNext" title="Hotkey: N">Next (N)</button>
-      </div>
+    <div class="row">
+      <button id="btnC" title="Hotkey: 1">CONTROL (1)</button>
+      <button id="btnA" title="Hotkey: 2">APPROVAL (2)</button>
+      <button id="btnP" title="Hotkey: 3">PROTECTION (3)</button>
+      <button id="btnReveal" title="Hotkey: R">Reveal (R)</button>
+      <button id="btnNext" title="Hotkey: N">Next (N)</button>
+    </div>
 
-      <div class="meta">
-        <span class="pill" id="modePill">Mode: Mixed</span>
-        <span class="pill" id="settingPill">Setting: —</span>
-        <span class="pill" id="countPill">Generated: 0</span>
-        <span class="pill" id="streakPill">Streak: 0</span>
-        <span class="pill" id="timerPill">Timer: 2.0s</span>
-        <span class="pill" id="missPill">Misses: 0</span>
-      </div>
+    <div class="meta">
+      <span class="pill" id="modePill">Mode: Mixed</span>
+      <span class="pill" id="contextPill">Context: —</span>
+      <span class="pill" id="signalPill">Signal: —</span>
+      <span class="pill" id="countPill">Generated: 0</span>
+      <span class="pill" id="streakPill">Streak: 0</span>
+      <span class="pill" id="timerPill">Timer: 2.0s</span>
+      <span class="pill" id="autoPill">Auto-next: ON</span>
+      <span class="pill" id="missPill">Misses: 0</span>
+    </div>
 
-      <div class="timerbar" title="Decision timer (optional)">
-        <div class="timerfill" id="timerFill"></div>
-      </div>
-      <div class="hint" id="timerHint">Decide fast: Control defines. Approval checks. Protection scans risk.</div>
+    <div class="timerbar" title="Decision timer (optional)">
+      <div class="timerfill" id="timerFill"></div>
+    </div>
 
-      <div class="feedback" id="feedback" style="display:none;">
-        <div id="fbLine"></div>
-        <div class="reason" id="fbReason"></div>
-        <div class="reason" id="fbWhyWords"></div>
-        <div class="respbox" id="respBox">
-          <b>Best response to say (man → woman)</b>
-          <div id="bestResponse"></div>
-          <div class="small" id="bodyTip" style="margin-top:8px;"></div>
-        </div>
-      </div>
-
-      <div class="kpi">
-        <div class="box">
-          <b>Score</b>
-          <div id="scoreLine">0 correct / 0 total</div>
-        </div>
-        <div class="box">
-          <b>Accuracy</b>
-          <div id="accLine">0%</div>
-        </div>
-        <div class="box">
-          <b>Last 50</b>
-          <div id="last50Line">—</div>
-        </div>
-      </div>
-
-      <div class="grid">
-        <div class="card" style="background:#0f1420;">
-          <b>Settings</b>
-          <div class="row" style="margin-top:10px;">
-            <label class="small">Mode
-              <select id="mode">
-                <option value="mixed">Mixed</option>
-                <option value="control">Control only</option>
-                <option value="approval">Approval only</option>
-                <option value="protection">Protection only</option>
-                <option value="misses">Misses only (review)</option>
-              </select>
-            </label>
-
-            <label class="small">Context style
-              <select id="style">
-                <option value="nyc">NYC strangers + public</option>
-                <option value="dating">Dating + social</option>
-                <option value="work">Work + client-like</option>
-                <option value="mixed">All contexts</option>
-              </select>
-            </label>
-
-            <label class="small">Statements per session
-              <input id="sessionN" type="number" min="500" max="200000" value="10000"/>
-            </label>
-
-            <label class="small">Decision timer (seconds)
-              <input id="timerSec" type="number" min="0" max="10" step="0.5" value="2"/>
-            </label>
-
-            <label class="small" style="display:flex; align-items:center; gap:8px; margin-left:4px;">
-              <input id="hardMode" type="checkbox" />
-              Hard mode (mixed signals)
-            </label>
-
-            <label class="small" style="display:flex; align-items:center; gap:8px; margin-left:4px;">
-              <input id="tts" type="checkbox" />
-              Read statement out loud (TTS)
-            </label>
-
-            <button id="btnReset">Reset Session</button>
-          </div>
-
-          <div class="hotkeys">
-            <div class="small"><b>Hotkeys:</b> 1=Control, 2=Approval, 3=Protection, R=Reveal, N=Next</div>
-            <div class="small"><b>Speed rule:</b> Choose in <span class="mono">2 seconds</span>, then check. Train reflex, not analysis.</div>
-          </div>
-
-          <div class="small" style="margin-top:10px;">
-            <b>Fast tells:</b><br/>
-            <span class="mono">Control</span> = directives / boundary-setting / “we’re doing X.”<br/>
-            <span class="mono">Approval</span> = apologizing / softeners / “is that okay?”<br/>
-            <span class="mono">Protection</span> = risk checks / slowing down / “what if…?”
-          </div>
-        </div>
-
-        <div class="card" style="background:#0f1420;">
-          <b>How to respond (quick body + words)</b>
-          <div class="small" style="margin-top:10px;">
-            <ul>
-              <li><b>To Control</b>: calm voice, steady eye contact, slower pace. Say: “Got it. What outcome do you want?”</li>
-              <li><b>To Approval</b>: warm tone, nod, validate. Say: “You’re good. What would feel best for you?”</li>
-              <li><b>To Protection</b>: remove urgency, show options. Say: “No rush. Here are the risks + a safe next step.”</li>
-            </ul>
-            <div class="small" style="opacity:.9;">This trainer prints the exact best line each time so you memorize it by repetition.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="small" style="margin-top:12px; opacity:.85;">
-        Note: These are “driver” signals for conversation—not diagnoses. People can switch drivers depending on context.
+    <div class="feedback" id="feedback" style="display:none;">
+      <div id="fbLine"></div>
+      <div class="reason" id="fbReason"></div>
+      <div class="reason" id="fbTell"></div>
+      <div class="respbox">
+        <b>Best response to say (man → woman)</b>
+        <div id="bestResponse"></div>
+        <div class="small" id="bodyTip" style="margin-top:8px;"></div>
       </div>
     </div>
+
+    <div class="kpi">
+      <div class="box"><b>Score</b><div id="scoreLine">0 correct / 0 total</div></div>
+      <div class="box"><b>Accuracy</b><div id="accLine">0%</div></div>
+      <div class="box"><b>Last 50</b><div id="last50Line">—</div></div>
+    </div>
+
+    <div class="grid">
+      <div class="card" style="background:#0f1420;">
+        <b>Settings (harder + more varied)</b>
+        <div class="row" style="margin-top:10px;">
+          <label class="small">Mode
+            <select id="mode">
+              <option value="mixed">Mixed</option>
+              <option value="control">Control only</option>
+              <option value="approval">Approval only</option>
+              <option value="protection">Protection only</option>
+              <option value="misses">Misses only (review)</option>
+            </select>
+          </label>
+
+          <label class="small">Context mix
+            <select id="style">
+              <option value="nyc">NYC strangers + public</option>
+              <option value="dating">Dating + social</option>
+              <option value="work">Work + client-like</option>
+              <option value="mixed">All contexts</option>
+            </select>
+          </label>
+
+          <label class="small">Session size
+            <input id="sessionN" type="number" min="500" max="300000" value="12000" />
+          </label>
+
+          <label class="small">Decision timer (sec)
+            <input id="timerSec" type="number" min="0" max="10" step="0.5" value="2" />
+          </label>
+
+          <label class="small">Auto-next delay (ms)
+            <input id="autoDelay" type="number" min="0" max="5000" step="100" value="900" />
+          </label>
+
+          <label class="small" style="display:flex; align-items:center; gap:8px; margin-left:4px;">
+            <input id="autoNext" type="checkbox" checked />
+            Auto-next after answer
+          </label>
+
+          <label class="small" style="display:flex; align-items:center; gap:8px; margin-left:4px;">
+            <input id="hardMode" type="checkbox" checked />
+            Hard mode (camouflage + mixed signals)
+          </label>
+
+          <label class="small" style="display:flex; align-items:center; gap:8px; margin-left:4px;">
+            <input id="mislead" type="checkbox" checked />
+            Trick items (polite words hiding control / fear hiding control / etc.)
+          </label>
+
+          <label class="small" style="display:flex; align-items:center; gap:8px; margin-left:4px;">
+            <input id="tts" type="checkbox" />
+            Read statement out loud (TTS)
+          </label>
+
+          <button id="btnReset">Reset Session</button>
+        </div>
+
+        <div class="hotkeys">
+          <div class="small"><b>Hotkeys:</b> 1=Control, 2=Approval, 3=Protection, R=Reveal, N=Next</div>
+          <div class="small"><b>Hard rule:</b> classify the driver by what the sentence is trying to <span class="mono">DO</span>.</div>
+          <div class="small"><b>Control</b> = steer / define / correct. <b>Approval</b> = be liked / accepted. <b>Protection</b> = reduce risk / keep exit.</div>
+        </div>
+
+        <div class="small" style="margin-top:10px;">
+          <b>NYC realism:</b> This includes stranger openers, flirting, tests, boundaries, “soft” control, safety checks, money/time logistics, and commitment ambiguity.
+        </div>
+      </div>
+
+      <div class="card" style="background:#0f1420;">
+        <b>Fast counters (words + body)</b>
+        <div class="small" style="margin-top:10px;">
+          <ul>
+            <li><b>Control</b>: calm + slow. “Got it. What outcome do you want?” (do not debate)</li>
+            <li><b>Approval</b>: warmth + nod. “You’re good. What would feel best?” (reassure first)</li>
+            <li><b>Protection</b>: remove urgency. “No rush. Here’s the safe next step.” (options + clarity)</li>
+          </ul>
+          <div class="small" style="opacity:.9;">The trainer prints the best line each round—repeat it out loud to program reflex.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="small" style="margin-top:12px; opacity:.86;">
+      Note: Drivers are conversation motives, not diagnoses. Same person can switch drivers by topic and setting.
+    </div>
   </div>
+</div>
 
 <script>
 (() => {
-  // ---------- Helpers ----------
-  const pick = arr => arr[Math.floor(Math.random() * arr.length)];
-  const shuffle = arr => arr.map(v => [Math.random(), v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
-  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  // Helpers
+  const pick = (arr) => arr[Math.floor(Math.random()*arr.length)];
+  const shuffle = (arr) => arr.map(v => [Math.random(), v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+  const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+  const chance = (p) => Math.random() < p;
 
-  // ---------- Context settings ----------
-  const SETTINGS_NYC = [
-    "Subway platform", "Train car", "Bodega line", "Coffee line", "Street corner",
-    "Elevator", "Building lobby", "Rideshare pickup", "Gym check-in", "Park bench",
-    "Store checkout", "Front desk", "Networking event", "Restaurant host stand"
+  // Context pools
+  const CTX_NYC = [
+    "Subway platform","Train car","Bodega line","Coffee line","Street corner","Elevator","Building lobby",
+    "Rideshare pickup","Gym check-in","Park bench","Store checkout","Front desk","Networking event",
+    "Restaurant host stand","Museum line","Bookstore","Pharmacy line","Crosswalk"
   ];
-  const SETTINGS_DATING = [
-    "First date", "Texting", "DM conversation", "Bar intro", "Coffee date",
-    "After-work meetup", "Friend group hang", "Party small talk"
+  const CTX_DATING = [
+    "First date","Texting","DMs","Bar intro","Coffee date","After-work meetup","Friend group hang",
+    "Party small talk","Walking home","Late-night call"
   ];
-  const SETTINGS_WORK = [
-    "Client-like call", "Office hallway", "Professional meeting", "Scheduling call",
-    "Negotiation moment", "Project update", "Service inquiry"
+  const CTX_WORK = [
+    "Client-like call","Office hallway","Professional meeting","Scheduling call","Negotiation",
+    "Project update","Service inquiry","Contract talk","Payment discussion"
   ];
-
-  function chooseSetting(style) {
-    if (style === "dating") return pick(SETTINGS_DATING);
-    if (style === "work") return pick(SETTINGS_WORK);
-    if (style === "mixed") return pick([ ...SETTINGS_NYC, ...SETTINGS_DATING, ...SETTINGS_WORK ]);
-    return pick(SETTINGS_NYC);
+  function chooseCtx(style){
+    if (style==="dating") return pick(CTX_DATING);
+    if (style==="work") return pick(CTX_WORK);
+    if (style==="mixed") return pick([...CTX_NYC,...CTX_DATING,...CTX_WORK]);
+    return pick(CTX_NYC);
   }
 
-  // ---------- Drivers ----------
-  const DRIVERS = {
+  // Driver definitions
+  const DR = {
     control: {
       label: "CONTROL",
-      shortWhy: "She’s steering direction, setting terms, correcting, or demanding clarity.",
-      wordCues: ["directive", "boundary", "decision-push", "correction", "terms"],
-      bestResponses: [
-        "Got it. What outcome do you want right now?",
-        "Okay. Let’s be clear—what do you want me to do next?",
-        "I hear you. What’s the priority: speed, quality, or certainty?",
-        "Understood. Give me the top two requirements and I’ll follow that.",
-        "Fair. If we do it your way, what does “success” look like?"
+      coreTell: "Function = steering, defining terms, correcting, forcing clarity, or pushing decisions.",
+      tells: [
+        "Listen for: directives, corrections, boundaries, forced choices, “yes/no,” “be clear,” “do this.”",
+        "Listen for: control disguised as politeness—same steering, softer tone.",
+        "Listen for: impatience with ambiguity—she narrows options and demands structure."
       ],
-      bodyTip: "Body: slow your pace, keep your voice low, hold steady eye contact, don’t over-explain. Let her feel structure without a fight."
+      responses: [
+        "Got it. What outcome do you want right now?",
+        "Okay. Give me the top two requirements and I’ll follow that.",
+        "Understood. What’s the decision you want me to make here?",
+        "Fair. If we do it your way, what does success look like?",
+        "I hear you. What matters most: speed, certainty, or quality?"
+      ],
+      body: "Body: slow pace, steady eye contact, low voice, minimal explanation. Provide structure, don’t spar."
     },
     approval: {
       label: "APPROVAL",
-      shortWhy: "She’s checking acceptance, softening, apologizing, or trying to be liked/understood.",
-      wordCues: ["sorry", "is that okay", "hope", "am I weird", "does that make sense"],
-      bestResponses: [
+      coreTell: "Function = seeking acceptance, reassurance, warmth, or confirmation of safety-in-connection.",
+      tells: [
+        "Listen for: apologies, softeners, self-doubt, “is that okay,” “are we good,” “did I offend you?”",
+        "Listen for: over-explaining to avoid rejection or misunderstanding.",
+        "Listen for: fishing for emotional confirmation more than facts."
+      ],
+      responses: [
         "You’re good. That makes sense. What would feel best for you?",
         "No worries—thanks for saying it. What do you want from me here?",
-        "I get it. You’re not being too much. What would help you feel comfortable?",
-        "That’s fair. I’m with you. Do you want reassurance or a plan?",
-        "You don’t have to apologize. Tell me what you prefer."
+        "I get it. You’re not being too much. Do you want reassurance or a plan?",
+        "You don’t have to apologize. Tell me what you prefer.",
+        "We’re good. What would make you feel confident moving forward?"
       ],
-      bodyTip: "Body: warm expression, slight nod, softer eyes, open posture. Lead with reassurance before any logic."
+      body: "Body: soften face, small nods, open posture. Reassure first, then clarify."
     },
     protection: {
       label: "PROTECTION",
-      shortWhy: "She’s scanning risk, slowing commitment, asking for proof, or keeping an escape route.",
-      wordCues: ["what if", "can you prove", "I’m not comfortable", "policy", "in writing"],
-      bestResponses: [
-        "No rush. Here are the risks, and here’s a safe next step we can take.",
+      coreTell: "Function = reducing risk, verifying, slowing commitment, or preserving an exit.",
+      tells: [
+        "Listen for: what-if’s, terms, proof, “in writing,” “policy,” “I need to think,” “small test first.”",
+        "Listen for: time delays that protect her from regret or exploitation.",
+        "Listen for: control of exposure—she limits what she gives until trust is earned."
+      ],
+      responses: [
+        "No rush. Here are the risks, and here’s a safe next step.",
         "Totally fair. What’s the biggest risk you’re trying to avoid?",
-        "We can keep this simple and safe: small step first, then decide.",
-        "I get it. Here’s what’s included, what’s not, and your exit option.",
+        "We can do a small test first, then decide.",
+        "Here’s what’s included, what’s not, and your exit option.",
         "That’s reasonable. What would make this feel secure for you?"
       ],
-      bodyTip: "Body: give space, slow down, show your hands, avoid pressure. Use clarity + options, not persuasion."
+      body: "Body: give space, slow down, show hands, avoid urgency. Use clarity + options."
     }
   };
 
-  // ---------- WOMAN→MAN phrase banks (common speech) ----------
-  // Focus: what a man commonly hears from a woman in NY/public/dating/work contexts.
-  const WOMAN_COMMON = {
-    names: ["hey", "hi", "excuse me", "sorry", "quick question", "real quick"],
-    softeners: ["if that’s okay", "if you don’t mind", "no pressure", "just wondering", "I’m just asking"],
-    time: ["right now", "today", "in a second", "before we go", "when you can", "later"],
-    controlStarters: [
-      "Look,", "No—listen,", "Hold on,", "Here’s what we’re doing:", "Let’s be clear:",
-      "I need you to", "Just do this:", "Stop—one thing at a time."
+  // ---------- Phrase engine (hard + varied) ----------
+  // We build more difficult items by mixing:
+  // - surface politeness masking Control
+  // - warm vibe masking Protection
+  // - nervous laugh masking Control
+  // - “logical” questions that are actually Approval bids
+  //
+  // Also: more QUESTIONS than statements (your ask).
+  const BANK = {
+    // Very common NYC + stranger + dating microphrases:
+    micro: {
+      openers: ["hey","hi","excuse me","sorry to bother you","quick question","real quick","wait—"],
+      softeners: ["if that’s okay","if you don’t mind","no pressure","just checking","just curious","I could be wrong"],
+      intensifiers: ["literally","honestly","for real","like","basically","lowkey","not gonna lie"],
+      time: ["right now","today","before we go","in a sec","in a minute","later","this week"],
+      hedges: ["maybe","kind of","sort of","I guess","I mean","I’m not sure but","it seems like"],
+      fillers: ["um","uh","like","you know","right?","okay so","so yeah"]
+    },
+
+    // Context-flavored objects/topics (NYC today, general + safe)
+    topics: {
+      stranger: [
+        "the line","this train","the exit","your seat","the direction","the time","that spot",
+        "the menu","the order","your number","the address","the elevator","the door","the tip"
+      ],
+      dating: [
+        "your intentions","where this is going","consistency","communication","plans","boundaries",
+        "exes","dating apps","labels","effort","trust","time together"
+      ],
+      work: [
+        "timeline","deliverables","price","terms","scope","next steps","confirmation","receipt",
+        "availability","contract","follow-up","invoice"
+      ],
+      money: ["payment","split","tip","price","budget","total","refunds","fees","charges"],
+      safety: ["meeting up","location","who’s there","privacy","screenshots","rides","late night","drinks"]
+    },
+
+    // Driver-specific templates (questions heavy)
+    controlQ: [
+      "Can you answer this directly—yes or no?",
+      "Why didn’t you just say that from the start?",
+      "What are we doing—A or B?",
+      "Are you going to do it or not?",
+      "Just be clear with me: what do you want?",
+      "Don’t dodge—what’s the real reason?",
+      "So what’s the plan, exactly?",
+      "What time are you coming? Give me a time.",
+      "If you’re not serious, say that now.",
+      "Can we stop going in circles?"
     ],
-    controlLines: [
-      "I need a straight answer.",
-      "Don’t do that.",
-      "We’re not doing it that way.",
-      "Just tell me yes or no.",
-      "Pick one and stick to it.",
-      "I’m not going back and forth.",
-      "I need you to be on time.",
-      "If you can’t do it, say that.",
-      "This is what’s going to happen.",
-      "I’m setting a boundary here."
+    controlS: [
+      "Here’s what we’re going to do.",
+      "No—let’s not do that.",
+      "I need you to be consistent.",
+      "We’re not doing this back-and-forth.",
+      "That’s not what I asked.",
+      "I’m setting a boundary.",
+      "This is the expectation.",
+      "That doesn’t work for me.",
+      "Make it make sense—quickly.",
+      "Let’s be clear."
     ],
-    approvalStarters: [
-      "I don’t want to be annoying but", "This might sound silly but", "I hope this isn’t weird but",
-      "Tell me if I’m wrong but", "I’m not trying to bother you but", "Can I ask something?"
-    ],
-    approvalLines: [
-      "Is that okay with you?",
+
+    approvalQ: [
+      "Am I being weird for asking?",
+      "Did I say that wrong?",
+      "Are you mad at me?",
+      "Do you still like me?",
+      "Is this okay with you?",
       "Does that make sense?",
-      "Am I doing too much?",
       "Did I come off rude?",
       "Are we good?",
-      "I’m sorry—I didn’t mean it like that.",
-      "I just don’t want you to think I’m crazy.",
-      "I’m trying to be respectful.",
-      "I feel dumb asking this.",
-      "I just want to make sure you’re not upset."
+      "Is it just me, or…?",
+      "Can you reassure me about something?"
     ],
-    protectionStarters: [
-      "Before I say yes,", "Wait—what’s the catch?", "I’m not comfortable with that yet.",
-      "Let’s slow down.", "I need more info first.", "I’m trying to be careful."
+    approvalS: [
+      "I’m sorry, I didn’t mean it like that.",
+      "I don’t want you to think I’m crazy.",
+      "I just want to be honest with you.",
+      "I’m trying to do this the right way.",
+      "I feel silly saying this.",
+      "I hope that didn’t bother you.",
+      "I just want us to be okay.",
+      "I’m probably overthinking.",
+      "I don’t want to be a burden.",
+      "I really value what you think."
     ],
-    protectionLines: [
-      "What happens if it doesn’t work?",
+
+    protectionQ: [
+      "What happens if this goes wrong?",
+      "What’s the catch?",
       "Can you put that in writing?",
-      "What’s your policy on refunds?",
+      "What’s your policy if it doesn’t work?",
+      "Who else is going to be there?",
       "How do I know this is legit?",
-      "Who else is involved?",
-      "What’s the exact total?",
-      "What’s included and what’s not?",
       "Can we do a small test first?",
+      "What’s included and what’s not?",
+      "Can I think about it and get back to you?",
+      "What’s the safest way to do this?"
+    ],
+    protectionS: [
+      "I’m not comfortable with that yet.",
+      "Let’s slow down.",
+      "I need more info first.",
+      "I’m trying to be careful.",
+      "I don’t want to rush into anything.",
+      "I need clarity before I say yes.",
+      "I’m keeping my options open.",
       "I’m not committing right now.",
-      "I need to think about it."
+      "I’ve been burned before.",
+      "I need a little time."
     ],
-    nycStrangerContext: [
-      "Is this seat taken?",
-      "Are you in line?",
-      "Do you know if this train goes to…?",
-      "Which way is downtown?",
-      "Is this the express?",
-      "Sorry—do you know where the exit is?",
-      "Can I squeeze by?",
-      "Do you know what time they close?"
+
+    // Camouflage / trick overlays
+    camoControlPolite: [
+      "Would you mind clarifying something for me—exactly what are you doing?",
+      "I appreciate you, but I need you to be consistent.",
+      "Just to confirm, you will do X by Y, correct?",
+      "I’m not upset, I just need a direct answer.",
+      "I’m saying this calmly: I need a clear plan."
     ],
-    datingContext: [
-      "What are you looking for, honestly?",
-      "Are you seeing other people?",
-      "What are your intentions with me?",
-      "Are you serious or just vibing?",
-      "Can we take it slow?",
-      "I’m not doing casual.",
-      "I like you, I’m just nervous.",
-      "Do you even like me?"
+    camoApprovalLogical: [
+      "Logically, it seems like you’re pulling away—am I reading that wrong?",
+      "I might be misinterpreting, but do you still want this?",
+      "I’m not emotional—just tell me we’re okay.",
+      "From your perspective, am I doing this right?",
+      "I’m trying to be rational… I just need reassurance."
     ],
-    workContext: [
-      "I need the details clearly.",
-      "Can you confirm the plan?",
-      "What’s the timeline?",
-      "I need a clear next step.",
-      "Can you send that summary?",
-      "What are the exact terms?"
+    camoProtectionFlirty: [
+      "You’re cute, but what are your intentions—like, for real?",
+      "I like you… I just move slow. What’s the safest pace here?",
+      "I’m down, but where exactly are we going and who’s there?",
+      "I’m interested—just tell me what happens if I say no.",
+      "I’m not saying no—just tell me the risks."
+    ],
+
+    // “Double-signal” combos (hard)
+    doubleControlApproval: [
+      "I’m not trying to be difficult—just answer directly: yes or no.",
+      "I don’t want to argue… but that’s not what I asked. What’s the plan?",
+      "Sorry, but I need clarity. Are we doing this or not?"
+    ],
+    doubleProtectionApproval: [
+      "I like you, I’m just anxious—what if this goes wrong?",
+      "I’m not saying no—I just need to feel safe with you.",
+      "I’m probably overthinking… can you explain what happens next?"
+    ],
+    doubleControlProtection: [
+      "Before I say yes, be clear: what are the exact terms?",
+      "Don’t rush me—give me the details, then I’ll decide.",
+      "What time and where? I’m not doing vague plans."
     ]
   };
 
-  // ---------- Pattern generator ----------
-  function buildWomanLine(driver, style, hardMode) {
-    const w = WOMAN_COMMON;
-
-    // Context infusion:
-    const ctx =
-      style === "dating" ? pick(w.datingContext) :
-      style === "work"   ? pick(w.workContext) :
-      style === "mixed"  ? pick([ ...w.nycStrangerContext, ...w.datingContext, ...w.workContext ]) :
-                           pick(w.nycStrangerContext);
-
-    // Driver phrase selection:
-    let core = "";
-    if (driver === "control") core = pick(w.controlLines);
-    if (driver === "approval") core = pick(w.approvalLines);
-    if (driver === "protection") core = pick(w.protectionLines);
-
-    // Start style:
-    const start =
-      driver === "control" ? pick(w.controlStarters) :
-      driver === "approval" ? pick(w.approvalStarters) :
-      pick(w.protectionStarters);
-
-    // Softeners (approval/protection) and timing (control):
-    const soft = pick(w.softeners);
-    const t = pick(w.time);
-
-    // Hard mode adds “mixed signal” noise to train you to spot the true driver.
-    const noiseApproval = pick([
-      "I’m probably overthinking.", "I don’t want to be a problem.", "Sorry, I’m nervous.", "I hope that’s okay."
-    ]);
-    const noiseControl = pick([
-      "Just be direct with me.", "I need clarity.", "Don’t dodge the question.", "Let’s not waste time."
-    ]);
-    const noiseProtect = pick([
-      "I just want to be safe.", "I’ve been burned before.", "I need to feel comfortable.", "I need to know the risk."
-    ]);
-
-    let line = "";
-
-    if (!hardMode) {
-      // Clear signal
-      if (driver === "control") line = `${start} ${core}`;
-      if (driver === "approval") line = `${start} ${core}`;
-      if (driver === "protection") line = `${start} ${core}`;
-    } else {
-      // Mixed signals while preserving the true underlying driver
-      if (driver === "control") line = `${start} ${noiseApproval} ${core}`;
-      if (driver === "approval") line = `${start} ${noiseProtect} ${core}`;
-      if (driver === "protection") line = `${start} ${noiseApproval} ${core}`;
-    }
-
-    // Add context tag occasionally to make it feel real without bloating.
-    const addCtx = Math.random() < 0.55;
-    if (addCtx) {
-      // Make it sound like she’s speaking in that setting.
-      const prefix = pick([
-        "Also—", "By the way—", "So—", "And—", "Because—", "Quick thing—"
-      ]);
-      // Keep it short.
-      line = `${line} ${prefix} ${ctx}`;
-    }
-
-    // Add softeners to approval/protection; timing to control
-    if (driver === "approval" && Math.random() < 0.6) line = `${line} ${soft}.`;
-    else if (driver === "protection" && Math.random() < 0.6) line = `${line} ${soft}.`;
-    else if (driver === "control" && Math.random() < 0.55) line = `${line} ${t}.`;
-
-    // Clean punctuation
-    line = line.replace(/\s+/g, " ").trim();
-    if (!/[.!?]$/.test(line)) line += ".";
-    return line;
+  // Determine context topic lists
+  function topicFor(style){
+    if (style==="dating") return pick(BANK.topics.dating);
+    if (style==="work") return pick(BANK.topics.work);
+    if (style==="mixed") return pick([...BANK.topics.stranger, ...BANK.topics.dating, ...BANK.topics.work]);
+    return pick(BANK.topics.stranger);
   }
 
-  function makeItem(mode, style, hardMode) {
-    let driver = mode;
-    if (mode === "mixed") driver = pick(["control","approval","protection"]);
-    const setting = chooseSetting(style);
-    const text = buildWomanLine(driver, style, hardMode);
-    return { text, driver, setting };
+  // Signal strength label (for UI)
+  function signalLabel(level){
+    return level==="clear" ? "Clear" : (level==="camo" ? "Camouflaged" : "Double-signal");
   }
 
-  // ---------- TTS ----------
-  function speak(text) {
-    try {
+  // Create one hard item
+  function buildItem(driver, style, hardMode, trick){
+    const ctx = chooseCtx(style);
+    const topic = topicFor(style);
+
+    // Decide if question vs statement (more questions)
+    const isQ = chance(0.68);
+
+    // Difficulty layer selection:
+    let layer = "clear";
+    if (hardMode && chance(0.55)) layer = "camo";
+    if (hardMode && chance(0.25)) layer = "double";
+
+    // If trick items enabled, boost camo/double
+    if (trick && hardMode){
+      if (chance(0.40)) layer = "camo";
+      if (chance(0.22)) layer = "double";
+    }
+
+    // Base line selection by driver
+    function baseLine(){
+      if (driver==="control") return isQ ? pick(BANK.controlQ) : pick(BANK.controlS);
+      if (driver==="approval") return isQ ? pick(BANK.approvalQ) : pick(BANK.approvalS);
+      return isQ ? pick(BANK.protectionQ) : pick(BANK.protectionS);
+    }
+
+    // Overlay selection by layer
+    let core = baseLine();
+
+    if (layer==="camo"){
+      if (driver==="control") core = pick(BANK.camoControlPolite);
+      if (driver==="approval") core = pick(BANK.camoApprovalLogical);
+      if (driver==="protection") core = pick(BANK.camoProtectionFlirty);
+    }
+    if (layer==="double"){
+      if (driver==="control") core = pick(BANK.doubleControlApproval);
+      if (driver==="approval") core = pick(BANK.doubleProtectionApproval); // approval often hides in safety/anxiety
+      if (driver==="protection") core = pick(BANK.doubleControlProtection);
+    }
+
+    // Add NYC flavor micro-phrases
+    const m = BANK.micro;
+    const opener = chance(0.40) ? (pick(m.openers) + " ") : "";
+    const intens = chance(0.30) ? (pick(m.intensifiers) + " ") : "";
+    const soft = chance(0.42) ? (" " + pick(m.softeners)) : "";
+    const time = chance(0.30) ? (" " + pick(m.time)) : "";
+    const hedge = chance(0.22) ? (pick(m.hedges) + " ") : "";
+
+    // Add topic attachment (more realistic + harder)
+    const attachTopic = chance(0.70);
+    const topicAddon = attachTopic ? pick([
+      `about ${topic}`,
+      `with ${topic}`,
+      `on ${topic}`,
+      `for ${topic}`,
+      `around ${topic}`
+    ]) : "";
+
+    // Add one extra clause to make parsing harder
+    const extraClause = hardMode && chance(0.55) ? pick([
+      "I’m not trying to start anything.",
+      "I’m not accusing you.",
+      "I’m being honest.",
+      "I’m trying to do this right.",
+      "I’m saying this calmly.",
+      "I just want clarity."
+    ]) : "";
+
+    // Combine into a single natural line
+    let text = `${opener}${intens}${hedge}${core}`.replace(/\s+/g," ").trim();
+
+    // Inject topic/setting subtly
+    if (chance(0.65)) {
+      const tail = pick([
+        `—${topicAddon} ${time}`.replace(/\s+/g," ").trim(),
+        `${topicAddon} ${time}`.replace(/\s+/g," ").trim(),
+        `${time} ${topicAddon}`.replace(/\s+/g," ").trim()
+      ]).trim();
+
+      if (tail && tail !== "—") text = `${text} ${tail}`.replace(/\s+/g," ").trim();
+    }
+
+    if (extraClause) text = `${text} ${extraClause}`.replace(/\s+/g," ").trim();
+    if (soft && chance(0.7)) text = `${text} ${soft}`.replace(/\s+/g," ").trim();
+
+    // Ensure punctuation
+    if (!/[.!?]$/.test(text)) text += isQ ? "?" : ".";
+    // Ensure it reads like a woman speaking to a man
+    // (keep neutral, no stereotypes, but interpersonal)
+    return { text, driver, ctx, layer };
+  }
+
+  function makeDriver(mode){
+    if (mode==="mixed") return pick(["control","approval","protection"]);
+    return mode;
+  }
+
+  // TTS
+  function speak(text){
+    try{
       if (!("speechSynthesis" in window)) return;
       window.speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(text);
-      u.rate = 1.02;
+      u.rate = 1.04;
       u.pitch = 1.0;
       u.volume = 1.0;
       window.speechSynthesis.speak(u);
-    } catch (e) {}
+    }catch(e){}
   }
 
-  // ---------- App state ----------
-  let mode = "mixed";
-  let style = "nyc";
-  let hardMode = false;
-  let tts = false;
-
-  let sessionN = 10000;
-  let pool = [];
-  let idx = 0;
-
-  let total = 0, correct = 0, streak = 0;
-  const last50 = [];
-  const misses = []; // store missed items for review mode
-
-  // Timer state
-  let timerSec = 2.0;
-  let timerStart = 0;
-  let timerRAF = null;
-
-  // ---------- Elements ----------
+  // Elements
   const stmtEl = document.getElementById("stmt");
   const fbEl = document.getElementById("feedback");
   const fbLineEl = document.getElementById("fbLine");
   const fbReasonEl = document.getElementById("fbReason");
-  const fbWhyWordsEl = document.getElementById("fbWhyWords");
+  const fbTellEl = document.getElementById("fbTell");
   const bestResponseEl = document.getElementById("bestResponse");
   const bodyTipEl = document.getElementById("bodyTip");
 
-  const modeSel = document.getElementById("mode");
-  const styleSel = document.getElementById("style");
-  const sessionNEl = document.getElementById("sessionN");
-  const timerSecEl = document.getElementById("timerSec");
-  const hardModeEl = document.getElementById("hardMode");
-  const ttsEl = document.getElementById("tts");
-
   const modePill = document.getElementById("modePill");
-  const settingPill = document.getElementById("settingPill");
+  const contextPill = document.getElementById("contextPill");
+  const signalPill = document.getElementById("signalPill");
   const countPill = document.getElementById("countPill");
   const streakPill = document.getElementById("streakPill");
   const timerPill = document.getElementById("timerPill");
+  const autoPill = document.getElementById("autoPill");
   const missPill = document.getElementById("missPill");
 
   const timerFill = document.getElementById("timerFill");
@@ -478,16 +570,80 @@
   const btnP = document.getElementById("btnP");
   const btnReveal = document.getElementById("btnReveal");
   const btnNext = document.getElementById("btnNext");
+
+  const modeSel = document.getElementById("mode");
+  const styleSel = document.getElementById("style");
+  const sessionNEl = document.getElementById("sessionN");
+  const timerSecEl = document.getElementById("timerSec");
+  const autoDelayEl = document.getElementById("autoDelay");
+  const autoNextEl = document.getElementById("autoNext");
+  const hardModeEl = document.getElementById("hardMode");
+  const misleadEl = document.getElementById("mislead");
+  const ttsEl = document.getElementById("tts");
   const btnReset = document.getElementById("btnReset");
 
-  function setModeUI() {
-    const m = mode === "mixed" ? "Mixed" : (mode === "misses" ? "Misses only" : DRIVERS[mode].label);
+  // State
+  let mode = "mixed";
+  let style = "nyc";
+  let sessionN = 12000;
+  let timerSec = 2.0;
+  let autoNext = true;
+  let autoDelay = 900;
+  let hardMode = true;
+  let trick = true;
+  let tts = false;
+
+  let pool = [];
+  let idx = 0;
+
+  let total=0, correct=0, streak=0;
+  const last50 = [];
+  const misses = [];
+
+  let timerStart = 0;
+  let timerRAF = null;
+  let autoNextTO = null;
+
+  function stopTimer(){
+    if (timerRAF) cancelAnimationFrame(timerRAF);
+    timerRAF = null;
+    timerFill.style.width = "0%";
+  }
+
+  function stopAuto(){
+    if (autoNextTO) clearTimeout(autoNextTO);
+    autoNextTO = null;
+  }
+
+  function startTimer(){
+    stopTimer();
+    if (timerSec <= 0) return;
+    timerStart = performance.now();
+    const tick = (now) => {
+      const elapsed = (now - timerStart) / 1000;
+      const pct = clamp((elapsed / timerSec) * 100, 0, 100);
+      timerFill.style.width = pct + "%";
+      if (elapsed >= timerSec) {
+        reveal(null, true);
+        return;
+      }
+      timerRAF = requestAnimationFrame(tick);
+    };
+    timerRAF = requestAnimationFrame(tick);
+  }
+
+  function setPills(item){
+    const m = mode==="mixed" ? "Mixed" : (mode==="misses" ? "Misses only" : DR[mode].label);
     modePill.textContent = `Mode: ${m}`;
+    contextPill.textContent = `Context: ${item ? item.ctx : "—"}`;
+    signalPill.textContent = `Signal: ${item ? signalLabel(item.layer) : "—"}`;
+    streakPill.textContent = `Streak: ${streak}`;
     timerPill.textContent = `Timer: ${timerSec.toFixed(1)}s`;
+    autoPill.textContent = `Auto-next: ${autoNext ? "ON" : "OFF"} (${autoDelay}ms)`;
     missPill.textContent = `Misses: ${misses.length}`;
   }
 
-  function updateKPIs() {
+  function updateKPIs(){
     scoreLine.textContent = `${correct} correct / ${total} total`;
     const acc = total ? Math.round((correct/total)*100) : 0;
     accLine.textContent = `${acc}%`;
@@ -497,186 +653,175 @@
     missPill.textContent = `Misses: ${misses.length}`;
   }
 
-  function generatePool() {
+  function generatePool(){
     pool = [];
     idx = 0;
 
-    if (mode === "misses") {
-      // review misses
+    if (mode==="misses") {
       pool = shuffle(misses.slice());
       countPill.textContent = `Generated: ${pool.length} (review)`;
       return;
     }
 
-    for (let i=0; i<sessionN; i++) pool.push(makeItem(mode, style, hardMode));
+    for (let i=0;i<sessionN;i++){
+      const d = makeDriver(mode);
+      pool.push(buildItem(d, style, hardMode, trick));
+    }
     pool = shuffle(pool);
     countPill.textContent = `Generated: ${pool.length}`;
   }
 
-  function stopTimer() {
-    if (timerRAF) cancelAnimationFrame(timerRAF);
-    timerRAF = null;
-    timerFill.style.width = "0%";
+  function disableChoices(disabled){
+    btnC.disabled = btnA.disabled = btnP.disabled = disabled;
   }
 
-  function startTimer() {
+  function showItem(){
     stopTimer();
-    if (timerSec <= 0) return;
-    timerStart = performance.now();
-    const tick = (now) => {
-      const elapsed = (now - timerStart) / 1000;
-      const pct = clamp((elapsed / timerSec) * 100, 0, 100);
-      timerFill.style.width = pct + "%";
-      if (elapsed >= timerSec) {
-        // Time's up: auto reveal (no penalty) to train fast recognition
-        reveal(null, true);
-        return;
-      }
-      timerRAF = requestAnimationFrame(tick);
-    };
-    timerRAF = requestAnimationFrame(tick);
-  }
+    stopAuto();
 
-  function showItem() {
-    stopTimer();
-
-    if (idx >= pool.length) {
-      stmtEl.textContent = `Session complete. Reset to generate more.`;
-      btnC.disabled = btnA.disabled = btnP.disabled = btnReveal.disabled = true;
-      btnNext.disabled = true;
+    if (idx >= pool.length){
+      stmtEl.textContent = "Session complete. Reset to generate more.";
       fbEl.style.display = "none";
-      settingPill.textContent = `Setting: —`;
+      disableChoices(true);
+      btnReveal.disabled = true;
+      btnNext.disabled = true;
+      setPills(null);
       return;
     }
+
     const item = pool[idx];
     stmtEl.textContent = item.text;
-    settingPill.textContent = `Setting: ${item.setting}`;
+
     fbEl.style.display = "none";
-    btnC.disabled = btnA.disabled = btnP.disabled = false;
+    fbEl.className = "feedback";
+    disableChoices(false);
     btnReveal.disabled = false;
     btnNext.disabled = false;
 
+    setPills(item);
     if (tts) speak(item.text);
     startTimer();
   }
 
-  function buildWhyWords(driverKey, text) {
-    const cues = DRIVERS[driverKey].wordCues;
-    const hits = cues.filter(c => text.toLowerCase().includes(c.replace(/[- ]/g," ")));
-    // Use general “what to listen for” explanation (robust even without exact word hits)
-    if (driverKey === "control") {
-      return "Listen for: directives, boundaries, decision-push, corrections, and strong terms like “need,” “don’t,” “we’re doing,” “be clear,” “yes or no.”";
-    }
-    if (driverKey === "approval") {
-      return "Listen for: apologies, softeners, acceptance-checks, and reassurance bids like “is that okay,” “does that make sense,” “I hope,” “I don’t want to be annoying,” “are we good?”";
-    }
-    return "Listen for: risk checks, verification, slowing down, and escape routes like “what if,” “in writing,” “policy,” “I’m not comfortable,” “I need to think,” “can we do a small test first?”";
+  function tellText(driver){
+    if (driver==="control") return pick(DR.control.tells);
+    if (driver==="approval") return pick(DR.approval.tells);
+    return pick(DR.protection.tells);
   }
 
-  function reveal(choiceKey, auto=false) {
+  function reveal(choiceKey, auto=false){
     stopTimer();
+    stopAuto();
 
     const item = pool[idx];
     const correctKey = item.driver;
-    const correctLabel = DRIVERS[correctKey].label;
 
     fbEl.style.display = "block";
     fbEl.className = "feedback";
     fbLineEl.textContent = auto
-      ? `⏱ Time’s up. Correct: ${correctLabel}`
-      : `Correct: ${correctLabel}` + (choiceKey ? ` | You chose: ${DRIVERS[choiceKey].label}` : "");
+      ? `⏱ Time’s up. Correct: ${DR[correctKey].label}`
+      : `Correct: ${DR[correctKey].label}` + (choiceKey ? ` | You chose: ${DR[choiceKey].label}` : "");
 
-    fbReasonEl.textContent = `Why: ${DRIVERS[correctKey].shortWhy}`;
-    fbWhyWordsEl.textContent = buildWhyWords(correctKey, item.text);
+    fbReasonEl.textContent = `Why: ${DR[correctKey].coreTell}`;
+    fbTellEl.textContent = tellText(correctKey);
 
-    bestResponseEl.textContent = pick(DRIVERS[correctKey].bestResponses);
-    bodyTipEl.textContent = DRIVERS[correctKey].bodyTip;
+    bestResponseEl.textContent = pick(DR[correctKey].responses);
+    bodyTipEl.textContent = DR[correctKey].body;
 
     btnReveal.disabled = true;
   }
 
-  function answer(choiceKey) {
+  function answer(choiceKey){
     stopTimer();
+    stopAuto();
 
     const item = pool[idx];
     const correctKey = item.driver;
 
     total++;
-    const isCorrect = (choiceKey === correctKey);
-    if (isCorrect) { correct++; streak++; }
-    else { streak = 0; misses.push(item); }
+    const isCorrect = (choiceKey===correctKey);
+    if (isCorrect){ correct++; streak++; }
+    else { streak=0; misses.push(item); }
 
     last50.push(isCorrect);
-    if (last50.length > 50) last50.shift();
+    if (last50.length>50) last50.shift();
 
     updateKPIs();
 
     fbEl.style.display = "block";
     fbEl.className = "feedback " + (isCorrect ? "good" : "bad");
 
-    fbLineEl.textContent = (isCorrect ? "✅ Correct." : "❌ Not quite.")
-      + ` Correct: ${DRIVERS[correctKey].label} | You chose: ${DRIVERS[choiceKey].label}`;
+    fbLineEl.textContent = (isCorrect ? "✅ Correct." : "❌ Wrong.")
+      + ` Correct: ${DR[correctKey].label} | You chose: ${DR[choiceKey].label}`;
 
-    fbReasonEl.textContent = `Why: ${DRIVERS[correctKey].shortWhy}`;
-    fbWhyWordsEl.textContent = buildWhyWords(correctKey, item.text);
+    fbReasonEl.textContent = `Why: ${DR[correctKey].coreTell}`;
+    fbTellEl.textContent = tellText(correctKey);
 
-    bestResponseEl.textContent = pick(DRIVERS[correctKey].bestResponses);
-    bodyTipEl.textContent = DRIVERS[correctKey].bodyTip;
+    bestResponseEl.textContent = pick(DR[correctKey].responses);
+    bodyTipEl.textContent = DR[correctKey].body;
 
-    btnC.disabled = btnA.disabled = btnP.disabled = true;
+    disableChoices(true);
     btnReveal.disabled = true;
 
-    setModeUI();
+    setPills(item);
+
+    if (autoNext){
+      autoNextTO = setTimeout(() => {
+        idx++;
+        showItem();
+      }, clamp(autoDelay, 0, 5000));
+    }
   }
 
-  // ---------- Events ----------
+  // Buttons
   btnC.addEventListener("click", () => answer("control"));
   btnA.addEventListener("click", () => answer("approval"));
   btnP.addEventListener("click", () => answer("protection"));
 
   btnReveal.addEventListener("click", () => reveal(null,false));
+  btnNext.addEventListener("click", () => { idx++; showItem(); });
 
-  btnNext.addEventListener("click", () => {
-    idx++;
-    showItem();
-  });
-
+  // Reset session
   btnReset.addEventListener("click", () => {
     mode = modeSel.value;
     style = styleSel.value;
-    hardMode = hardModeEl.checked;
-    tts = ttsEl.checked;
 
-    sessionN = parseInt(sessionNEl.value || "10000", 10);
-    if (!Number.isFinite(sessionN) || sessionN < 500) sessionN = 10000;
+    sessionN = parseInt(sessionNEl.value || "12000", 10);
+    if (!Number.isFinite(sessionN) || sessionN < 500) sessionN = 12000;
 
     timerSec = parseFloat(timerSecEl.value || "2");
     if (!Number.isFinite(timerSec)) timerSec = 2;
     timerSec = clamp(timerSec, 0, 10);
 
-    setModeUI();
-    generatePool();
+    autoDelay = parseInt(autoDelayEl.value || "900", 10);
+    if (!Number.isFinite(autoDelay)) autoDelay = 900;
+    autoDelay = clamp(autoDelay, 0, 5000);
 
-    btnC.disabled = btnA.disabled = btnP.disabled = false;
+    autoNext = !!autoNextEl.checked;
+    hardMode = !!hardModeEl.checked;
+    trick = !!misleadEl.checked;
+    tts = !!ttsEl.checked;
+
+    generatePool();
+    disableChoices(false);
     btnReveal.disabled = false;
     btnNext.disabled = false;
 
     showItem();
   });
 
-  // Keyboard shortcuts
+  // Hotkeys
   document.addEventListener("keydown", (e) => {
-    if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "SELECT" || e.target.isContentEditable)) return;
+    if (e.target && (e.target.tagName==="INPUT" || e.target.tagName==="SELECT" || e.target.isContentEditable)) return;
     const k = e.key.toLowerCase();
-    if (k === "1") { if (!btnC.disabled) answer("control"); }
-    if (k === "2") { if (!btnA.disabled) answer("approval"); }
-    if (k === "3") { if (!btnP.disabled) answer("protection"); }
-    if (k === "r") { if (!btnReveal.disabled) reveal(null,false); }
-    if (k === "n") { if (!btnNext.disabled) { idx++; showItem(); } }
+    if (k==="1" && !btnC.disabled) answer("control");
+    if (k==="2" && !btnA.disabled) answer("approval");
+    if (k==="3" && !btnP.disabled) answer("protection");
+    if (k==="r" && !btnReveal.disabled) reveal(null,false);
+    if (k==="n" && !btnNext.disabled) { idx++; showItem(); }
   });
 
   // Init
-  setModeUI();
   generatePool();
   updateKPIs();
   showItem();
@@ -684,4 +829,4 @@
 </script>
 </body>
 </html>
-
+```
